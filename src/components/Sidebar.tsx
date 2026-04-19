@@ -14,6 +14,8 @@ import {
   Menu,
   X,
   Sparkles,
+  ActivitySquare,
+  ClipboardCheck,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import XPBar from './XPBar';
@@ -26,6 +28,8 @@ const navItems = [
   { href: '/examens', label: 'Examens', icon: FileText },
   { href: '/tuteur', label: 'Tuteur IA', icon: Bot },
   { href: '/stats', label: 'Stats', icon: BarChart3 },
+  { href: '/analyse', label: 'Analyse', icon: ActivitySquare },
+  { href: '/bilan', label: 'Bilan du jour', icon: ClipboardCheck },
 ];
 
 export default function Sidebar() {

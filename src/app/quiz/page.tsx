@@ -2,7 +2,8 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Settings, Shuffle, Trophy, Clock, RotateCcw, ChevronRight, Check, X } from 'lucide-react';
+import { Settings, Shuffle, Trophy, Clock, RotateCcw, ChevronRight, Check, X, ClipboardCheck } from 'lucide-react';
+import Link from 'next/link';
 import QuizQuestion from '@/components/QuizQuestion';
 import CountdownTimer from '@/components/CountdownTimer';
 import OpusHelper from '@/components/OpusHelper';
@@ -357,14 +358,23 @@ export default function QuizPage() {
               ))}
             </div>
 
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setPhase('config')}
-              className="w-full py-3 rounded-xl bg-primary text-white font-medium flex items-center justify-center gap-2"
-            >
-              <RotateCcw className="w-4 h-4" /> Nouveau quiz
-            </motion.button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setPhase('config')}
+                className="w-full py-3 rounded-xl bg-primary text-white font-medium flex items-center justify-center gap-2"
+              >
+                <RotateCcw className="w-4 h-4" /> Nouveau quiz
+              </motion.button>
+
+              <Link
+                href="/bilan"
+                className="w-full py-3 rounded-xl bg-bg-card border border-white/10 text-text font-medium flex items-center justify-center gap-2 hover:bg-bg-hover transition-colors"
+              >
+                <ClipboardCheck className="w-4 h-4" /> Bilan du jour
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
