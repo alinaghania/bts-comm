@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { Lock } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 
 interface BadgeProps {
   icon: string;
@@ -11,6 +12,7 @@ interface BadgeProps {
 }
 
 export default function Badge({ icon, name, description, earned }: BadgeProps) {
+  const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[icon] || LucideIcons.Award;
   return (
     <motion.div
       whileHover={{ scale: earned ? 1.05 : 1 }}
@@ -20,7 +22,9 @@ export default function Badge({ icon, name, description, earned }: BadgeProps) {
           : 'bg-bg-card/50 border-white/5 opacity-50'
       }`}
     >
-      <div className={`text-3xl ${earned ? '' : 'grayscale'}`}>{icon}</div>
+      <div className={`${earned ? '' : 'grayscale'}`}>
+        <Icon className="w-8 h-8 text-primary" />
+      </div>
       <p className="text-xs font-medium text-center">{name}</p>
       <p className="text-xs text-text-muted text-center">{description}</p>
       {!earned && (

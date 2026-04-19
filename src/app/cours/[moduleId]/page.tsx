@@ -2,7 +2,7 @@
 
 import { use, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, Check, Circle, BookOpen, Brain, Bot, ChevronDown, ChevronUp, Lightbulb } from 'lucide-react';
+import { ArrowLeft, Check, Circle, BookOpen, Brain, Bot, ChevronDown, ChevronUp, Lightbulb, CircleCheck } from 'lucide-react';
 import Link from 'next/link';
 import OpusHelper from '@/components/OpusHelper';
 import DidYouKnow from '@/components/DidYouKnow';
@@ -324,7 +324,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                             <ul className="space-y-2">
                               {chapter.keyPoints.map((point, k) => (
                                 <li key={k} className="text-sm text-text-muted flex items-start gap-2">
-                                  <span className="text-primary mt-0.5">&#10003;</span>
+                                  <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                                   <span className="flex-1">{point}</span>
                                   <OpusHelper
                                     context={`Concept du BTS Communication, module "${data.title}", chapitre "${chapter.title}" : ${point}. Explique ce point cle de maniere simple avec un exemple concret.`}

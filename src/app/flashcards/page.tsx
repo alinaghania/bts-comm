@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { motion } from 'motion/react';
-import { Filter, Box, BarChart3 } from 'lucide-react';
+import { Filter, Box, BarChart3, PartyPopper } from 'lucide-react';
 import FlashCard from '@/components/FlashCard';
 import OpusHelper from '@/components/OpusHelper';
 import { useFlashcards } from '@/lib/hooks';
@@ -163,7 +163,9 @@ export default function FlashcardsPage() {
           animate={{ opacity: 1 }}
           className="text-center py-16"
         >
-          <div className="text-4xl mb-4">&#127881;</div>
+          <div className="mb-4">
+            <PartyPopper className="w-10 h-10 text-success mx-auto" />
+          </div>
           <h2 className="text-xl font-bold">Bravo !</h2>
           <p className="text-text-muted mt-2">Toutes les cartes ont ete revisees pour aujourd&apos;hui</p>
         </motion.div>

@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Settings, Shuffle, Trophy, Clock, RotateCcw, ChevronRight } from 'lucide-react';
+import { Settings, Shuffle, Trophy, Clock, RotateCcw, ChevronRight, Check, X } from 'lucide-react';
 import QuizQuestion from '@/components/QuizQuestion';
 import CountdownTimer from '@/components/CountdownTimer';
 import OpusHelper from '@/components/OpusHelper';
@@ -339,7 +339,7 @@ export default function QuizPage() {
                 >
                   <div className="flex items-start gap-3">
                     <span className={`text-sm font-bold ${answers[i] ? 'text-success' : 'text-danger'}`}>
-                      {answers[i] ? '&#10003;' : '&#10007;'}
+                      {answers[i] ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
                     </span>
                     <div className="flex-1">
                       <p className="text-sm font-medium">{q.question}</p>
