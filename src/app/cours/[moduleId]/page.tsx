@@ -4,6 +4,15 @@ import { use, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Check, Circle, BookOpen, Brain, Bot, ChevronDown, ChevronUp, Lightbulb } from 'lucide-react';
 import Link from 'next/link';
+import OpusHelper from '@/components/OpusHelper';
+import DidYouKnow from '@/components/DidYouKnow';
+
+const chapterFacts: Record<string, string> = {
+  'ch1': 'Le modele de Shannon a ete concu pour les telecommunications, pas pour la communication humaine ! Il a fallu attendre Palo Alto pour une vision plus humaine.',
+  'ch2': 'Roland Barthes a analyse une simple pub pour des pates Panzani et en a tire une theorie revolutionnaire sur l\'image. Comme quoi, tout peut etre un objet d\'etude !',
+  'ch3': 'En 1938, la fausse emission radio "La Guerre des mondes" d\'Orson Welles a provoque une panique reelle. C\'est l\'un des premiers exemples de l\'impact des medias de masse.',
+  'ch4': 'Le mot "rhetorique" vient du grec "rhetorike" qui signifie "art de bien parler". Les Grecs anciens l\'enseignaient dans toutes les ecoles !',
+};
 
 interface ModuleData {
   title: string;
@@ -301,6 +310,11 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                           </p>
                         ))}
 
+                        {/* DidYouKnow */}
+                        {chapterFacts[chapter.id] && (
+                          <DidYouKnow fact={chapterFacts[chapter.id]} />
+                        )}
+
                         {/* Key points */}
                         {chapter.keyPoints.length > 0 && (
                           <div className="mt-6 p-4 rounded-xl bg-primary/5 border border-primary/10">
@@ -310,12 +324,26 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                             <ul className="space-y-2">
                               {chapter.keyPoints.map((point, k) => (
                                 <li key={k} className="text-sm text-text-muted flex items-start gap-2">
-                                  <span className="text-primary mt-0.5">&#10003;</span> {point}
+                                  <span className="text-primary mt-0.5">&#10003;</span>
+                                  <span className="flex-1">{point}</span>
+                                  <OpusHelper
+                                    context={`Concept du BTS Communication, module "${data.title}", chapitre "${chapter.title}" : ${point}. Explique ce point cle de maniere simple avec un exemple concret.`}
+                                    type="concept"
+                                    compact
+                                  />
                                 </li>
                               ))}
                             </ul>
                           </div>
                         )}
+
+                        {/* Opus chapter helper */}
+                        <div className="mt-4">
+                          <OpusHelper
+                            context={`Je suis en train d'etudier le chapitre "${chapter.title}" du module "${data.title}" (epreuve ${data.exam}) du BTS Communication. Les points cles sont : ${chapter.keyPoints.join(', ')}. Explique-moi ce chapitre de maniere simple avec des analogies.`}
+                            type="concept"
+                          />
+                        </div>
 
                         {/* Action buttons */}
                         <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-white/5">
