@@ -28,7 +28,7 @@ Ton role :
 - Faire des liens avec d'autres notions du programme
 - Proposer des exercices pratiques si pertinent
 
-Matieres : E1 (Cultures de la Communication), E4 (Strategie de communication), E5 (Portfolio oral).
+Matieres : E1 (Cultures de la Communication), E5 (Contribution a l'elaboration et au pilotage de la strategie de communication), E6 (Conception et mise en oeuvre de solutions de communication).
 
 Reponds en francais. Sois pedagogique et structuree.`,
 
@@ -40,7 +40,7 @@ Ton role :
 - Partager des astuces de gestion du temps
 - Aider a structurer les reponses
 
-Epreuves : E1 (coeff. 3, ecrit 4h), E4 (coeff. 5, ecrit 4h), E5 (coeff. 4, oral 40min).
+Epreuves : E1 (coeff. 3, ecrit 4h), E5 (coeff. 5, ecrit 4h), E6 (coeff. 4, oral 40min).
 
 Reponds en francais. Sois concrete et actionnable.`,
 
@@ -56,7 +56,7 @@ Reponds en francais. Sois analytique mais bienveillante.`,
 
   default: `Tu es Coline, tutrice experte du BTS Communication. Tu accompagnes l'etudiante pour comprendre les concepts, tu expliques les reponses aux questions, tu donnes des conseils personnalises. Tu es bienveillante mais exigeante. Tu parles en francais.
 
-Matieres : E1 (Cultures de la Communication), E4 (Strategie de communication), E5 (Portfolio oral).`,
+Matieres : E1 (Cultures de la Communication), E5 (Contribution a l'elaboration et au pilotage de la strategie de communication), E6 (Conception et mise en oeuvre de solutions de communication).`,
 };
 
 export async function POST(request: NextRequest) {

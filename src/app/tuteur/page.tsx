@@ -30,7 +30,7 @@ Je peux t'aider a :
 - Comprendre des concepts difficiles
 - Faire des exercices pratiques
 - Analyser tes points faibles
-- Preparer tes epreuves E1, E4 et E5
+- Preparer tes epreuves E1, E5 et E6
 
 Qu'est-ce que tu veux travailler aujourd'hui ?`,
     },

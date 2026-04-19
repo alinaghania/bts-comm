@@ -1,10 +1,10 @@
 // BTS Communication - Course Data
-// All content for E1, E4, E5 exams
+// All content for E1, E5, E6 exams
 
 export interface Module {
   id: string;
   title: string;
-  exam: "e1" | "e4" | "e5";
+  exam: "e1" | "e5" | "e6";
   chapters: Chapter[];
 }
 
@@ -367,12 +367,12 @@ En publicite : on combine les 3. L'ethos (une star credible porte le produit), l
     ],
   },
   // =========================================
-  // E4 - STRATEGIE DE COMMUNICATION
+  // E5 - CONTRIBUTION A L'ELABORATION ET AU PILOTAGE DE LA STRATEGIE DE COMMUNICATION
   // =========================================
   {
     id: "veille-operationnelle",
     title: "Veille operationnelle & strategique",
-    exam: "e4",
+    exam: "e5",
     chapters: [
       {
         id: "types-veille",
@@ -407,7 +407,7 @@ Outils de veille : alertes Google, flux RSS, curation (Feedly, Scoop.it), reseau
   {
     id: "diagnostic-strategique",
     title: "Diagnostic (SWOT, PESTEL)",
-    exam: "e4",
+    exam: "e5",
     chapters: [
       {
         id: "swot",
@@ -432,7 +432,7 @@ Methodologie : d'abord analyser l'interne (forces/faiblesses), puis l'externe (o
           "Sert a etablir le diagnostic de communication",
           "Croiser interne/externe pour degager des axes strategiques",
         ],
-        didYouKnow: "Le SWOT a ete developpe dans les annees 1960 a Stanford. A l'examen du BTS, le SWOT est demande dans presque TOUS les sujets E4. C'est LA competence indispensable !",
+        didYouKnow: "Le SWOT a ete developpe dans les annees 1960 a Stanford. A l'examen du BTS, le SWOT est demande dans presque TOUS les sujets E5. C'est LA competence indispensable !",
         flashcards: [
           { id: "f-sw1", front: "Que signifie SWOT ?", back: "Strengths (Forces), Weaknesses (Faiblesses), Opportunities (Opportunites), Threats (Menaces). En francais : FFOM.", difficulty: "easy", tags: ["swot", "diagnostic"] },
           { id: "f-sw2", front: "Quels elements du SWOT sont INTERNES a l'organisation ?", back: "Les FORCES et les FAIBLESSES. L'interne = ce qui depend de l'organisation (ressources, competences, image). L'externe (opportunites/menaces) = l'environnement.", difficulty: "medium", tags: ["swot"] },
@@ -474,7 +474,7 @@ PESTEL et SWOT sont complementaires : PESTEL alimente la partie EXTERNE du SWOT 
   {
     id: "positionnement-cibles",
     title: "Positionnement, objectifs, cibles",
-    exam: "e4",
+    exam: "e5",
     chapters: [
       {
         id: "positionnement",
@@ -563,7 +563,7 @@ B2C = grand public / B2B = professionnels`,
   {
     id: "types-communication",
     title: "Types de communication",
-    exam: "e4",
+    exam: "e5",
     chapters: [
       {
         id: "com-institutionnelle-commerciale",
@@ -603,7 +603,7 @@ Gerer une situation exceptionnelle qui menace l'image/reputation. Necessite : ce
   {
     id: "moyens-medias",
     title: "Moyens medias & hors-medias",
-    exam: "e4",
+    exam: "e5",
     chapters: [
       {
         id: "medias-hors-medias",
@@ -643,7 +643,7 @@ Tendance actuelle : le digital est devenu le 1er media en termes d'investissemen
   {
     id: "reco-strategique",
     title: "Recommandation strategique & copy strategy",
-    exam: "e4",
+    exam: "e5",
     chapters: [
       {
         id: "reco",
@@ -689,7 +689,7 @@ LA COPY STRATEGY :
   {
     id: "portfolio-construction",
     title: "Construire son portfolio",
-    exam: "e5",
+    exam: "e6",
     chapters: [
       {
         id: "portfolio-contenu",
@@ -734,7 +734,7 @@ TYPES DE PRODUCTIONS A INCLURE :
   {
     id: "oral-presentation",
     title: "Technique de presentation orale",
-    exam: "e5",
+    exam: "e6",
     chapters: [
       {
         id: "deroulement-oral",
@@ -812,6 +812,6 @@ export function getModuleById(id: string): Module | undefined {
 }
 
 // Helper to get modules by exam
-export function getModulesByExam(exam: "e1" | "e4" | "e5"): Module[] {
+export function getModulesByExam(exam: "e1" | "e5" | "e6"): Module[] {
   return modules.filter(m => m.exam === exam);
 }

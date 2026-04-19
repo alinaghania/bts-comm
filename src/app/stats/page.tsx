@@ -281,15 +281,15 @@ export default function StatsPage() {
   }, [progress.skillScores]);
 
   // Score prediction based on REAL progress with correct BTS coefficients
-  // E1 coeff 3, E4 coeff 5, E5 coeff 4 => total coeff 12
+  // E1 coeff 3, E5 coeff 5, E6 coeff 4 => total coeff 12
   const predictedScore = useMemo(() => {
-    const total = progress.e1Progress + progress.e4Progress + progress.e5Progress;
+    const total = progress.e1Progress + progress.e5Progress + progress.e6Progress;
     if (total === 0) return 0;
     const weighted =
-      progress.e1Progress * 3 + progress.e4Progress * 5 + progress.e5Progress * 4;
+      progress.e1Progress * 3 + progress.e5Progress * 5 + progress.e6Progress * 4;
     // Progress is 0-100, convert to /20
     return Math.round((weighted / 12) * 20 / 100);
-  }, [progress.e1Progress, progress.e4Progress, progress.e5Progress]);
+  }, [progress.e1Progress, progress.e5Progress, progress.e6Progress]);
 
   const hasData =
     progress.totalQuestions > 0 ||
@@ -324,7 +324,7 @@ export default function StatsPage() {
             <p className="text-sm text-text-muted">Score predit au BTS</p>
             <p className="text-3xl font-bold">{predictedScore}/20</p>
             <p className="text-xs text-text-muted mt-1">
-              Base sur ta progression (E1 coeff 3, E4 coeff 5, E5 coeff 4)
+              Base sur ta progression (E1 coeff 3, E5 coeff 5, E6 coeff 4)
             </p>
           </div>
         </div>

@@ -140,7 +140,7 @@ const moduleData: Record<string, ModuleData> = {
   },
   'strategie-com': {
     title: 'Strategie de communication',
-    exam: 'E4',
+    exam: 'E5',
     chapters: [
       {
         id: 'ch1',
@@ -200,10 +200,10 @@ const moduleData: Record<string, ModuleData> = {
         id: 'ch7', title: 'La communication de crise', completed: false, content: [], keyPoints: [],
       },
       {
-        id: 'ch8', title: 'Etudes de cas E4', completed: false, content: [], keyPoints: [],
+        id: 'ch8', title: 'Etudes de cas E5', completed: false, content: [], keyPoints: [],
       },
       {
-        id: 'ch9', title: 'Entrainement E4 complet', completed: false, content: [], keyPoints: [],
+        id: 'ch9', title: 'Entrainement E5 complet', completed: false, content: [], keyPoints: [],
       },
     ],
   },

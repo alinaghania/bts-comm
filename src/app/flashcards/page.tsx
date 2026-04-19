@@ -8,7 +8,7 @@ import ColineHelper from '@/components/ColineHelper';
 import { useFlashcards } from '@/lib/hooks';
 import PageGuide from '@/components/PageGuide';
 
-const examFilters = ['Toutes', 'E1', 'E4', 'E5'];
+const examFilters = ['Toutes', 'E1', 'E5', 'E6'];
 
 export default function FlashcardsPage() {
   const [examFilter, setExamFilter] = useState<string>('Toutes');

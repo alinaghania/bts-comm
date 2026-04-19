@@ -42,23 +42,23 @@ const EXAM_CONFIG: Record<
     description:
       "Épreuve écrite portant sur la culture générale et l'expression en lien avec la communication.",
   },
-  e4: {
-    name: "E4 - Strategie de communication",
-    duration: 40, // oral
-    coefficient: 4,
+  e5: {
+    name: "E5 - Contribution a l'elaboration et au pilotage de la strategie de communication",
+    duration: 240,
+    coefficient: 5,
     modules: [
-      "negociation",
+      "strategie_comm",
       "conseil_annonceur",
-      "achat_espace",
-      "vente_solutions",
-      "relation_client",
+      "diagnostic",
+      "veille",
+      "droit_comm",
     ],
     questionCount: 30,
     description:
-      "Épreuve portant sur la relation commerciale dans le secteur de la communication.",
+      "Épreuve écrite portant sur le diagnostic, les préconisations stratégiques, le plan de communication et le droit de la communication.",
   },
-  e5: {
-    name: "E5 - Portfolio oral",
+  e6: {
+    name: "E6 - Conception et mise en oeuvre de solutions de communication",
     duration: 40,
     coefficient: 4,
     modules: [
@@ -70,22 +70,7 @@ const EXAM_CONFIG: Record<
     ],
     questionCount: 30,
     description:
-      "Épreuve portant sur la conduite de projets de communication et la production.",
-  },
-  e6: {
-    name: "E6 - Veille Opérationnelle",
-    duration: 180,
-    coefficient: 3,
-    modules: [
-      "recherche_info",
-      "veille",
-      "analyse_donnees",
-      "droit_comm",
-      "economie_comm",
-    ],
-    questionCount: 35,
-    description:
-      "Épreuve écrite portant sur la recherche d'informations, l'analyse et la veille.",
+      "Épreuve orale portant sur la conception et mise en oeuvre de solutions de communication. Situation A (portfolio) + Situation B (parcours + fiches descriptives).",
   },
 };
 

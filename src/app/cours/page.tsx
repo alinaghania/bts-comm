@@ -16,28 +16,28 @@ const modules = [
   { id: 'methodologie-e1', title: 'Methodologie E1 (analyse texte, dissertation, production creative)', exam: 'E1', chapters: 6 },
   { id: 'thematiques-2026', title: 'Thematiques 2026 ("A table", "La rue", "L\'exces")', exam: 'E1', chapters: 3 },
 
-  // E4 - Strategie de communication
-  { id: 'veille-operationnelle', title: 'Veille operationnelle & strategique', exam: 'E4', chapters: 4 },
-  { id: 'diagnostic', title: 'Diagnostic (SWOT, PESTEL)', exam: 'E4', chapters: 5 },
-  { id: 'positionnement', title: 'Positionnement, objectifs, cibles', exam: 'E4', chapters: 4 },
-  { id: 'types-com', title: 'Types de communication (institutionnelle, commerciale, interne, crise)', exam: 'E4', chapters: 6 },
-  { id: 'moyens-medias', title: 'Moyens medias & hors-medias', exam: 'E4', chapters: 5 },
-  { id: 'recommandation', title: 'Recommandation strategique & copy strategy', exam: 'E4', chapters: 5 },
-  { id: 'plan-com', title: 'Plan de communication, budget, planning', exam: 'E4', chapters: 4 },
-  { id: 'droit-com', title: 'Droit de la communication', exam: 'E4', chapters: 5 },
+  // E5 - Contribution a l'elaboration et au pilotage de la strategie de communication
+  { id: 'veille-operationnelle', title: 'Veille operationnelle & strategique', exam: 'E5', chapters: 4 },
+  { id: 'diagnostic', title: 'Diagnostic (SWOT, PESTEL)', exam: 'E5', chapters: 5 },
+  { id: 'positionnement', title: 'Positionnement, objectifs, cibles', exam: 'E5', chapters: 4 },
+  { id: 'types-com', title: 'Types de communication (institutionnelle, commerciale, interne, crise)', exam: 'E5', chapters: 6 },
+  { id: 'moyens-medias', title: 'Moyens medias & hors-medias', exam: 'E5', chapters: 5 },
+  { id: 'recommandation', title: 'Recommandation strategique & copy strategy', exam: 'E5', chapters: 5 },
+  { id: 'plan-com', title: 'Plan de communication, budget, planning', exam: 'E5', chapters: 4 },
+  { id: 'droit-com', title: 'Droit de la communication', exam: 'E5', chapters: 5 },
 
-  // E5 - Portfolio oral
-  { id: 'portfolio-numerique', title: 'Construire son portfolio numerique', exam: 'E5', chapters: 4 },
-  { id: 'fiches-descriptives', title: 'Rediger ses 3 fiches descriptives', exam: 'E5', chapters: 3 },
-  { id: 'presentation-orale', title: 'Technique de presentation orale', exam: 'E5', chapters: 4 },
-  { id: 'grille-evaluation', title: "Grille d'evaluation & criteres", exam: 'E5', chapters: 3 },
+  // E6 - Conception et mise en oeuvre de solutions de communication
+  { id: 'portfolio-numerique', title: 'Construire son portfolio numerique', exam: 'E6', chapters: 4 },
+  { id: 'fiches-descriptives', title: 'Rediger ses 3 fiches descriptives', exam: 'E6', chapters: 3 },
+  { id: 'presentation-orale', title: 'Technique de presentation orale', exam: 'E6', chapters: 4 },
+  { id: 'grille-evaluation', title: "Grille d'evaluation & criteres", exam: 'E6', chapters: 3 },
 ];
 
 const tabs = [
   { id: 'all', label: 'Tous' },
   { id: 'E1', label: 'E1 - Cultures' },
-  { id: 'E4', label: 'E4 - Strategie' },
-  { id: 'E5', label: 'E5 - Portfolio' },
+  { id: 'E5', label: 'E5 - Strategie' },
+  { id: 'E6', label: 'E6 - Oral' },
 ];
 
 export default function CoursPage() {
@@ -51,8 +51,8 @@ export default function CoursPage() {
     if (loading) return 0;
     switch (exam) {
       case 'E1': return progress.e1Progress;
-      case 'E4': return progress.e4Progress;
       case 'E5': return progress.e5Progress;
+      case 'E6': return progress.e6Progress;
       default: return 0;
     }
   };

@@ -84,8 +84,8 @@ const pageCards = [
 
 const examOptions = [
   { id: 'E1', label: 'E1 - Cultures de la communication' },
-  { id: 'E4', label: 'E4 - Strategie de communication' },
-  { id: 'E5', label: 'E5 - Portfolio oral' },
+  { id: 'E5', label: 'E5 - Contribution a l\'elaboration et au pilotage de la strategie de communication' },
+  { id: 'E6', label: 'E6 - Conception et mise en oeuvre de solutions de communication' },
 ];
 
 const levelOptions = [
@@ -101,7 +101,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
   // Step 2 state
   const [examDate, setExamDate] = useState('2026-06-15');
-  const [selectedExams, setSelectedExams] = useState<string[]>(['E1', 'E4', 'E5']);
+  const [selectedExams, setSelectedExams] = useState<string[]>(['E1', 'E5', 'E6']);
   const [level, setLevel] = useState('debutant');
 
   const toggleExam = (examId: string) => {

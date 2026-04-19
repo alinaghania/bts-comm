@@ -17,7 +17,7 @@ const guides: Record<string, { title: string; content: string }> = {
   cours: {
     title: 'Cours',
     content:
-      'Explore les modules par epreuve (E1, E4, E5). Clique sur un module pour lire le cours, voir les points cles et valider chaque chapitre au fur et a mesure.',
+      'Explore les modules par epreuve (E1, E5, E6). Clique sur un module pour lire le cours, voir les points cles et valider chaque chapitre au fur et a mesure.',
   },
   flashcards: {
     title: 'Flashcards',
@@ -32,7 +32,7 @@ const guides: Record<string, { title: string; content: string }> = {
   examens: {
     title: 'Examens',
     content:
-      'Simule l\'examen en conditions reelles avec un chronometre. Tu peux aussi faire corriger ta copie par Coline. Pour l\'E5, un mode preparation oral est disponible avec checklist et grille d\'evaluation.',
+      'Simule l\'examen en conditions reelles avec un chronometre. Tu peux aussi faire corriger ta copie par Coline. Pour l\'E6, un mode preparation oral est disponible avec checklist et grille d\'evaluation.',
   },
   analyse: {
     title: 'Analyse',

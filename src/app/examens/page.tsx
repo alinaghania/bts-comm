@@ -24,23 +24,23 @@ const exams: ExamConfig[] = [
     subtitle: 'Epreuve E1',
     duration: 4 * 60 * 60,
     coefficient: 3,
-    format: 'Dissertation + Synthese de documents',
-  },
-  {
-    id: 'E4',
-    name: 'Strategie de communication',
-    subtitle: 'Epreuve E4',
-    duration: 4 * 60 * 60,
-    coefficient: 5,
-    format: 'Etude de cas + Recommandation strategique',
+    format: 'Analyse de texte + Analyse de campagne + Production creative',
   },
   {
     id: 'E5',
-    name: 'Portfolio oral',
+    name: 'Contribution a l\'elaboration et au pilotage de la strategie de communication',
     subtitle: 'Epreuve E5',
+    duration: 4 * 60 * 60,
+    coefficient: 5,
+    format: 'Etude de cas - Diagnostic, preconisations, plan de communication, droit',
+  },
+  {
+    id: 'E6',
+    name: 'Conception et mise en oeuvre de solutions de communication',
+    subtitle: 'Epreuve E6',
     duration: 40 * 60,
     coefficient: 4,
-    format: 'Presentation du portfolio + Entretien',
+    format: 'Oral 40 min - Situation A (portfolio) + Situation B (parcours + fiches)',
   },
 ];
 
@@ -52,30 +52,30 @@ interface ExamHistory {
 }
 
 const colineTipsE1 = [
-  "Pense a structurer ta dissertation en 2 ou 3 parties equilibrees.",
+  "Partie 1 (8 pts) : repere bien les positions des auteurs dans le corpus (~30 lignes).",
   "N'oublie pas de citer au moins 2 auteurs/theories dans ta copie (Jakobson, Barthes, Watzlawick...).",
-  "Pour la synthese, confronte les documents entre eux plutot que de les resumer un par un.",
-  "Gere ton temps : 2h pour la synthese, 2h pour l'ecriture personnelle.",
+  "Partie 2 (12 pts) : analyse les procedes de la campagne de communication avant de rediger ton message.",
+  "Pour la production creative, justifie chaque choix (cible, ton, support, registre de langue).",
   "Relis ta copie 15 minutes avant la fin pour corriger les fautes d'orthographe.",
 ];
 
-const colineTipsE4 = [
-  "Structure ta recommandation : diagnostic, objectifs, cible, strategie, moyens, budget.",
-  "N'oublie pas de citer des exemples concrets de campagnes existantes pour appuyer ton propos.",
+const colineTipsE5 = [
+  "Structure ta recommandation : diagnostic (SWOT, veille), preconisations strategiques, plan de communication.",
+  "N'oublie pas la composante droit de la communication dans ton analyse.",
   "Pense a chiffrer ton budget : les correcteurs verifient la coherence financiere.",
-  "Commence toujours par une analyse SWOT solide avant de proposer des solutions.",
-  "Montre que tu maitrises le vocabulaire technique : GRP, CPM, taux de couverture...",
+  "Commence toujours par une analyse SWOT solide integrant les enjeux societaux, reglementaires et technologiques.",
+  "Montre que tu maitrises le vocabulaire technique : GRP, CPM, taux de couverture, pilotage...",
 ];
 
-const colineTipsE5 = [
+const colineTipsE6 = [
   "Prepare 3 fiches descriptives d'actions de communication que tu as menees.",
   "Ton tableau synoptique doit montrer la coherence entre tes actions et la strategie globale.",
-  "Lors de l'oral, regarde le jury, parle fort et structure ta presentation avec une intro/conclusion.",
-  "Prevois 20 min de presentation + 20 min de questions. Gere bien ton temps.",
+  "Situation A (10 pts) : evaluation continue via ton portfolio + tableau synoptique.",
+  "Situation B (10 pts) : pitch parcours 5 min + echange jury 15 min + approfondissement fiches 20 min.",
   "Anticipe les questions du jury : pourquoi ce choix de support ? Quel etait le budget ? Quels resultats ?",
 ];
 
-const e5Checklist = [
+const e6Checklist = [
   { label: '3 fiches descriptives d\'actions de communication', key: 'fiches' },
   { label: 'Tableau synoptique des actions', key: 'tableau' },
   { label: 'Supports visuels (PowerPoint / Keynote)', key: 'supports' },
@@ -84,16 +84,15 @@ const e5Checklist = [
   { label: 'Relecture et correction orthographique', key: 'relecture' },
 ];
 
-const e5GrilleEvaluation = [
-  { critere: 'Analyse de la situation de communication', points: 8 },
-  { critere: 'Pertinence des choix strategiques', points: 6 },
-  { critere: 'Qualite des productions realisees', points: 6 },
-  { critere: 'Maitrise des outils et techniques', points: 4 },
-  { critere: 'Qualite de la presentation orale', points: 4 },
-  { critere: 'Capacite a argumenter et repondre aux questions', points: 4 },
+const e6GrilleEvaluation = [
+  { critere: 'Situation A - Evaluation continue (portfolio + tableau synoptique)', points: 10 },
+  { critere: 'Situation B - Presentation du parcours (5 min)', points: 5 },
+  { critere: 'Situation B - Echange avec le jury (15 min)', points: 5 },
+  { critere: 'Situation B - Approfondissement fiches descriptives (20 min)', points: 5 },
+  { critere: 'Qualite de la presentation orale et argumentation', points: 5 },
 ];
 
-type Phase = 'select' | 'exam' | 'e5prep';
+type Phase = 'select' | 'exam' | 'e6prep';
 
 export default function ExamensPage() {
   const [phase, setPhase] = useState<Phase>('select');
@@ -103,8 +102,8 @@ export default function ExamensPage() {
   const [historyLoading, setHistoryLoading] = useState(true);
   const [showColineCoach, setShowColineCoach] = useState(false);
   const [currentTip, setCurrentTip] = useState(0);
-  const [e5CheckState, setE5CheckState] = useState<Record<string, boolean>>({});
-  const [e5OralTimer, setE5OralTimer] = useState(false);
+  const [e6CheckState, setE6CheckState] = useState<Record<string, boolean>>({});
+  const [e6OralTimer, setE6OralTimer] = useState(false);
 
   // Fetch exam history from API
   useEffect(() => {
@@ -148,8 +147,8 @@ export default function ExamensPage() {
 
   const getTips = useCallback(() => {
     if (!activeExam) return colineTipsE1;
-    if (activeExam.id === 'E4') return colineTipsE4;
     if (activeExam.id === 'E5') return colineTipsE5;
+    if (activeExam.id === 'E6') return colineTipsE6;
     return colineTipsE1;
   }, [activeExam]);
 
@@ -161,9 +160,9 @@ export default function ExamensPage() {
   return (
     <div className="p-4 md:p-8 max-w-5xl mx-auto space-y-8">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-        {(phase === 'exam' || phase === 'e5prep') && (
+        {(phase === 'exam' || phase === 'e6prep') && (
           <button
-            onClick={() => { setPhase('select'); setExamStarted(false); setE5OralTimer(false); }}
+            onClick={() => { setPhase('select'); setExamStarted(false); setE6OralTimer(false); }}
             className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-text transition-colors mb-4"
           >
             <ArrowLeft className="w-4 h-4" /> Retour
@@ -225,14 +224,14 @@ export default function ExamensPage() {
                     >
                       Commencer l&apos;epreuve <ChevronRight className="w-4 h-4" />
                     </motion.button>
-                    {exam.id === 'E5' && (
+                    {exam.id === 'E6' && (
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        onClick={() => setPhase('e5prep')}
+                        onClick={() => setPhase('e6prep')}
                         className="w-full py-2.5 rounded-xl bg-secondary/10 text-secondary font-medium text-sm flex items-center justify-center gap-2"
                       >
-                        <ClipboardList className="w-4 h-4" /> Preparer l&apos;oral E5
+                        <ClipboardList className="w-4 h-4" /> Preparer l&apos;oral E6
                       </motion.button>
                     )}
                   </div>
@@ -306,17 +305,17 @@ export default function ExamensPage() {
         )}
 
         {/* E5 ORAL PREP PHASE */}
-        {phase === 'e5prep' && (
+        {phase === 'e6prep' && (
           <motion.div
-            key="e5prep"
+            key="e6prep"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="space-y-6"
           >
             <div className="bg-bg-card border border-white/5 rounded-2xl p-6">
-              <h2 className="text-xl font-bold mb-2">Preparer l&apos;oral E5 - Portfolio</h2>
-              <p className="text-sm text-text-muted mb-6">Tout ce qu&apos;il faut pour reussir ton oral (coeff. 4)</p>
+              <h2 className="text-xl font-bold mb-2">Preparer l&apos;oral E6 - Conception et mise en oeuvre de solutions</h2>
+              <p className="text-sm text-text-muted mb-6">Tout ce qu&apos;il faut pour reussir ton oral (coeff. 4, 40 min)</p>
 
               {/* Grille d'evaluation */}
               <div className="mb-6">
@@ -324,7 +323,7 @@ export default function ExamensPage() {
                   <Award className="w-4 h-4 text-primary" /> Grille d&apos;evaluation officielle
                 </h3>
                 <div className="space-y-2">
-                  {e5GrilleEvaluation.map((item, i) => (
+                  {e6GrilleEvaluation.map((item, i) => (
                     <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-bg-hover/50">
                       <span className="text-sm">{item.critere}</span>
                       <span className="text-sm font-bold text-primary">/{item.points}</span>
@@ -332,7 +331,7 @@ export default function ExamensPage() {
                   ))}
                   <div className="flex items-center justify-between p-3 rounded-lg bg-primary/10 border border-primary/20">
                     <span className="text-sm font-bold">Total</span>
-                    <span className="text-sm font-bold text-primary">/{e5GrilleEvaluation.reduce((s, item) => s + item.points, 0)}</span>
+                    <span className="text-sm font-bold text-primary">/{e6GrilleEvaluation.reduce((s, item) => s + item.points, 0)}</span>
                   </div>
                 </div>
               </div>
@@ -343,25 +342,25 @@ export default function ExamensPage() {
                   <CheckCircle className="w-4 h-4 text-success" /> Checklist portfolio
                 </h3>
                 <div className="space-y-2">
-                  {e5Checklist.map((item) => (
+                  {e6Checklist.map((item) => (
                     <label
                       key={item.key}
                       className="flex items-center gap-3 p-3 rounded-lg bg-bg-hover/50 cursor-pointer hover:bg-bg-hover transition-colors"
                     >
                       <input
                         type="checkbox"
-                        checked={e5CheckState[item.key] || false}
-                        onChange={() => setE5CheckState((prev) => ({ ...prev, [item.key]: !prev[item.key] }))}
+                        checked={e6CheckState[item.key] || false}
+                        onChange={() => setE6CheckState((prev) => ({ ...prev, [item.key]: !prev[item.key] }))}
                         className="w-4 h-4 rounded border-white/20 text-primary focus:ring-primary"
                       />
-                      <span className={`text-sm ${e5CheckState[item.key] ? 'line-through text-text-muted' : ''}`}>
+                      <span className={`text-sm ${e6CheckState[item.key] ? 'line-through text-text-muted' : ''}`}>
                         {item.label}
                       </span>
                     </label>
                   ))}
                 </div>
                 <p className="text-xs text-text-muted mt-2">
-                  {Object.values(e5CheckState).filter(Boolean).length}/{e5Checklist.length} elements prepares
+                  {Object.values(e6CheckState).filter(Boolean).length}/{e6Checklist.length} elements prepares
                 </p>
               </div>
 
@@ -371,7 +370,7 @@ export default function ExamensPage() {
                   <Bot className="w-4 h-4 text-secondary" /> Conseils de Coline pour l&apos;oral
                 </h3>
                 <div className="space-y-2">
-                  {colineTipsE5.map((tip, i) => (
+                  {colineTipsE6.map((tip, i) => (
                     <div key={i} className="flex gap-2 p-3 rounded-lg bg-secondary/5 border border-secondary/10">
                       <Lightbulb className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-text/80">{tip}</p>
@@ -380,7 +379,7 @@ export default function ExamensPage() {
                 </div>
                 <div className="mt-3">
                   <ColineHelper
-                    context="Je prepare mon oral E5 du BTS Communication. Donne-moi des conseils detailles pour reussir ma presentation du portfolio : comment structurer ma presentation de 20 minutes, comment presenter mes 3 fiches descriptives de maniere captivante, et comment anticiper les questions du jury."
+                    context="Je prepare mon oral E6 du BTS Communication (Conception et mise en oeuvre de solutions de communication). Situation A : portfolio + tableau synoptique. Situation B : pitch parcours 5 min + echange jury 15 min + approfondissement fiches descriptives 20 min. Donne-moi des conseils detailles pour reussir."
                     type="exam_tip"
                   />
                 </div>
@@ -391,11 +390,11 @@ export default function ExamensPage() {
                 <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                   <Timer className="w-4 h-4 text-warning" /> Simulation oral (40 min)
                 </h3>
-                {!e5OralTimer ? (
+                {!e6OralTimer ? (
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => setE5OralTimer(true)}
+                    onClick={() => setE6OralTimer(true)}
                     className="w-full py-3 rounded-xl bg-gradient-to-r from-warning to-orange-500 text-white font-medium text-sm"
                   >
                     Lancer le chronometre oral (40 min)
@@ -409,18 +408,22 @@ export default function ExamensPage() {
                         onComplete={() => alert('Temps ecoule ! Ton oral est termine.')}
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-3 text-center">
+                    <div className="grid grid-cols-3 gap-3 text-center">
                       <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-                        <p className="text-xs text-text-muted">Presentation</p>
-                        <p className="text-sm font-bold text-primary">20 min</p>
+                        <p className="text-xs text-text-muted">Pitch parcours</p>
+                        <p className="text-sm font-bold text-primary">5 min</p>
                       </div>
                       <div className="p-3 rounded-lg bg-secondary/10 border border-secondary/20">
-                        <p className="text-xs text-text-muted">Questions jury</p>
-                        <p className="text-sm font-bold text-secondary">20 min</p>
+                        <p className="text-xs text-text-muted">Echange jury</p>
+                        <p className="text-sm font-bold text-secondary">15 min</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-success/10 border border-success/20">
+                        <p className="text-xs text-text-muted">Fiches descriptives</p>
+                        <p className="text-sm font-bold text-success">20 min</p>
                       </div>
                     </div>
                     <button
-                      onClick={() => setE5OralTimer(false)}
+                      onClick={() => setE6OralTimer(false)}
                       className="w-full py-2 rounded-xl bg-danger/10 text-danger text-sm hover:bg-danger/20 transition-colors"
                     >
                       Arreter la simulation
@@ -484,24 +487,32 @@ export default function ExamensPage() {
                     <div className="bg-bg-hover/50 rounded-xl p-6">
                       {activeExam.id === 'E1' ? (
                         <div className="space-y-4">
-                          <h3 className="font-semibold">Sujet : La communication a l&apos;ere du numerique</h3>
-                          <p className="text-sm text-text-muted leading-relaxed">
-                            A partir du corpus de documents suivant, vous realiserez une synthese (40 points) puis une ecriture personnelle (20 points).
-                          </p>
+                          <h3 className="font-semibold">Sujet E1 : La communication a l&apos;ere du numerique</h3>
+
                           <div className="border-t border-white/5 pt-4 space-y-3">
-                            <p className="text-sm"><span className="font-medium">Document 1 :</span> <span className="text-text-muted">Dominique Wolton, &quot;Internet et apres ?&quot;, 1999 (extrait)</span></p>
-                            <p className="text-sm"><span className="font-medium">Document 2 :</span> <span className="text-text-muted">Sherry Turkle, &quot;Alone Together&quot;, 2011 (extrait traduit)</span></p>
-                            <p className="text-sm"><span className="font-medium">Document 3 :</span> <span className="text-text-muted">Infographie INSEE, &quot;Usage des reseaux sociaux en France&quot;, 2024</span></p>
-                            <p className="text-sm"><span className="font-medium">Document 4 :</span> <span className="text-text-muted">Article Le Monde, &quot;L&apos;IA generative transforme la creation de contenu&quot;, 2025</span></p>
+                            <p className="text-sm font-medium text-primary">Partie 1 - Analyse de texte (8 points)</p>
+                            <p className="text-sm text-text-muted leading-relaxed">
+                              A partir du texte suivant (~30 lignes), repondez aux questions de comprehension et reperez les positions de l&apos;auteur.
+                            </p>
+                            <p className="text-sm"><span className="font-medium">Texte :</span> <span className="text-text-muted">Dominique Wolton, &quot;Internet et apres ?&quot;, 1999 (extrait)</span></p>
+                            <p className="text-sm text-text-muted">Q1. Identifiez la these principale de l&apos;auteur.</p>
+                            <p className="text-sm text-text-muted">Q2. Quels arguments utilise-t-il pour soutenir sa position ?</p>
+                            <p className="text-sm text-text-muted">Q3. Mettez en relation ce texte avec les enjeux actuels de la communication.</p>
                           </div>
-                          <div className="mt-6">
-                            <p className="text-sm font-medium mb-2">Ecriture personnelle :</p>
-                            <p className="text-sm text-text-muted italic">&quot;La communication numerique rapproche-t-elle ou eloigne-t-elle les individus ?&quot;</p>
+
+                          <div className="border-t border-white/5 pt-4 space-y-3">
+                            <p className="text-sm font-medium text-primary">Partie 2 - Analyse de campagne + Production (12 points)</p>
+                            <p className="text-sm text-text-muted leading-relaxed">
+                              Analysez les procedes de la campagne de communication ci-dessous, puis concevez et redigez un message pour l&apos;annonceur en justifiant vos choix.
+                            </p>
+                            <p className="text-sm"><span className="font-medium">Campagne :</span> <span className="text-text-muted">Campagne Securite Routiere 2025 - &quot;Tous concernes&quot;</span></p>
+                            <p className="text-sm text-text-muted">A. Analysez les procedes rhetoriques, visuels et semiotiques utilises.</p>
+                            <p className="text-sm text-text-muted">B. Concevez un message pour un nouvel annonceur (cible, ton, support) et justifiez vos choix creatifs.</p>
                           </div>
                         </div>
-                      ) : activeExam.id === 'E4' ? (
+                      ) : activeExam.id === 'E5' ? (
                         <div className="space-y-4">
-                          <h3 className="font-semibold">Cas : Lancement de la marque &quot;NaturComm&quot;</h3>
+                          <h3 className="font-semibold">Cas : Lancement de la marque &quot;NaturComm&quot; (E5 - Strategie)</h3>
                           <p className="text-sm text-text-muted leading-relaxed">
                             NaturComm est une nouvelle marque de cosmetiques bio qui souhaite se lancer sur le marche francais.
                             Vous etes charge(e) de concevoir sa strategie de communication.
@@ -516,15 +527,16 @@ export default function ExamensPage() {
                         </div>
                       ) : (
                         <div className="space-y-4">
-                          <h3 className="font-semibold">Simulation oral E5 - Portfolio</h3>
+                          <h3 className="font-semibold">Simulation oral E6 - Conception et mise en oeuvre de solutions</h3>
                           <p className="text-sm text-text-muted leading-relaxed">
-                            Presentez votre portfolio comprenant vos 3 fiches descriptives d&apos;actions de communication.
+                            Epreuve orale de 40 minutes comprenant 2 situations.
                           </p>
                           <div className="border-t border-white/5 pt-4 space-y-2">
-                            <p className="text-sm font-medium">Deroulement :</p>
-                            <p className="text-sm text-text-muted">1. Presentation du candidat et du contexte professionnel (5 min)</p>
-                            <p className="text-sm text-text-muted">2. Presentation des 3 actions de communication (15 min)</p>
-                            <p className="text-sm text-text-muted">3. Entretien avec le jury (20 min)</p>
+                            <p className="text-sm font-medium">Situation A (10 pts) :</p>
+                            <p className="text-sm text-text-muted">Evaluation continue - Portfolio + tableau synoptique</p>
+                            <p className="text-sm font-medium mt-3">Situation B (10 pts) - Oral 20 min max :</p>
+                            <p className="text-sm text-text-muted">Partie 1 : Presentation du parcours (5 min) + Echange avec jury (15 min)</p>
+                            <p className="text-sm text-text-muted">Partie 2 : Approfondissement a partir des 3 fiches descriptives (20 min)</p>
                           </div>
                         </div>
                       )}

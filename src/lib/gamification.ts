@@ -181,7 +181,7 @@ export const BADGES: Badge[] = [
   {
     id: "touche-a-tout",
     name: "Touche-à-tout",
-    description: "Étudie au moins un chapitre de chaque épreuve (E1, E4, E5)",
+    description: "Étudie au moins un chapitre de chaque épreuve (E1, E5, E6)",
     icon: "Layers",
     condition: "all_exams_studied",
   },

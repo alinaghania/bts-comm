@@ -25,7 +25,7 @@ interface CustomCard {
   createdAt: string;
 }
 
-const examOptions = ['E1', 'E4', 'E5'];
+const examOptions = ['E1', 'E5', 'E6'];
 
 export default function CustomFlashcardsPage() {
   const { userId } = useUser();

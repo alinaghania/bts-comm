@@ -55,39 +55,39 @@ interface CorrectionResult {
   parseError?: boolean;
 }
 
-type ExamType = 'E1' | 'E1_PARTIE1' | 'E1_PARTIE2' | 'E4';
+type ExamType = 'E1' | 'E1_PARTIE1' | 'E1_PARTIE2' | 'E5';
 
 const examOptions: { value: ExamType; label: string; description: string }[] = [
   { value: 'E1', label: 'E1 - Cultures de la communication', description: '4h, coef 3 - Copie complete' },
   { value: 'E1_PARTIE1', label: 'E1 - Partie 1 : Analyse de texte', description: '4h, coef 3 - Analyse uniquement' },
   { value: 'E1_PARTIE2', label: 'E1 - Partie 2 : Production', description: '4h, coef 3 - Production uniquement' },
-  { value: 'E4', label: 'E4 - Strategie de communication', description: '4h, coef 5' },
+  { value: 'E5', label: 'E5 - Contribution a l\'elaboration et au pilotage de la strategie de communication', description: '4h, coef 5' },
 ];
 
 const grillesOfficielle: Record<string, { critere: string; maxPoints: number }[]> = {
   E1: [
-    { critere: 'Comprehension du texte', maxPoints: 4 },
-    { critere: "Qualite de l'argumentation", maxPoints: 4 },
-    { critere: 'Analyse des procedes de la campagne', maxPoints: 6 },
-    { critere: 'Production creative', maxPoints: 6 },
+    { critere: 'Reperage et comprehension des positions du corpus', maxPoints: 4 },
+    { critere: 'Mise en relation corpus et communication', maxPoints: 4 },
+    { critere: "Analyse des procedes d'une campagne", maxPoints: 6 },
+    { critere: 'Conception et redaction d\'un message justifie', maxPoints: 6 },
   ],
   E1_PARTIE1: [
-    { critere: 'Comprehension du texte', maxPoints: 4 },
-    { critere: "Qualite de l'argumentation", maxPoints: 4 },
-    { critere: 'Analyse des procedes de la campagne', maxPoints: 6 },
-    { critere: 'Production creative', maxPoints: 6 },
+    { critere: 'Reperage et comprehension des positions du corpus', maxPoints: 4 },
+    { critere: 'Mise en relation corpus et communication', maxPoints: 4 },
+    { critere: "Analyse des procedes d'une campagne", maxPoints: 6 },
+    { critere: 'Conception et redaction d\'un message justifie', maxPoints: 6 },
   ],
   E1_PARTIE2: [
-    { critere: 'Comprehension du texte', maxPoints: 4 },
-    { critere: "Qualite de l'argumentation", maxPoints: 4 },
-    { critere: 'Analyse des procedes de la campagne', maxPoints: 6 },
-    { critere: 'Production creative', maxPoints: 6 },
+    { critere: 'Reperage et comprehension des positions du corpus', maxPoints: 4 },
+    { critere: 'Mise en relation corpus et communication', maxPoints: 4 },
+    { critere: "Analyse des procedes d'une campagne", maxPoints: 6 },
+    { critere: 'Conception et redaction d\'un message justifie', maxPoints: 6 },
   ],
-  E4: [
-    { critere: 'Diagnostic de communication', maxPoints: 5 },
-    { critere: 'Definition objectifs et cibles', maxPoints: 4 },
-    { critere: 'Recommandation strategique', maxPoints: 6 },
-    { critere: 'Plan de communication et budget', maxPoints: 5 },
+  E5: [
+    { critere: 'Diagnostic de communication (SWOT, veille, enjeux)', maxPoints: 5 },
+    { critere: 'Preconisations strategiques', maxPoints: 5 },
+    { critere: 'Plan de communication, moyens et pilotage', maxPoints: 5 },
+    { critere: 'Composante droit de la communication', maxPoints: 5 },
   ],
 };
 

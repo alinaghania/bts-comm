@@ -17,8 +17,8 @@ interface ModuleCardProps {
 export default function ModuleCard({ id, title, exam, progress, chapters, locked = false }: ModuleCardProps) {
   const examColors: Record<string, { bg: string; text: string; border: string }> = {
     E1: { bg: 'bg-primary/10', text: 'text-primary-light', border: 'border-primary/20' },
-    E4: { bg: 'bg-secondary/10', text: 'text-secondary', border: 'border-secondary/20' },
-    E5: { bg: 'bg-success/10', text: 'text-success', border: 'border-success/20' },
+    E5: { bg: 'bg-secondary/10', text: 'text-secondary', border: 'border-secondary/20' },
+    E6: { bg: 'bg-success/10', text: 'text-success', border: 'border-success/20' },
   };
 
   const colors = examColors[exam] || examColors.E1;

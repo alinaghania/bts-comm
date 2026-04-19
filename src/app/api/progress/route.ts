@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
     const currentLevel = user.level || 1;
     const xpToNext = currentLevel * 100; // Each level requires level*100 XP
 
-    // --- Compute e1Progress, e4Progress, e5Progress from flashcard mastery ---
+    // --- Compute e1Progress, e5Progress, e6Progress from flashcard mastery ---
     const examCards: Record<string, { total: number; mastered: number }> = {};
     for (const card of flashcardProgress) {
       const exam = (card.exam || "").toUpperCase();
@@ -98,8 +98,8 @@ export async function GET(request: NextRequest) {
     };
 
     const e1Progress = computeExamProgress("E1");
-    const e4Progress = computeExamProgress("E4");
     const e5Progress = computeExamProgress("E5");
+    const e6Progress = computeExamProgress("E6");
 
     // --- Compute flashcardsDue ---
     const now = new Date();
@@ -255,8 +255,8 @@ export async function GET(request: NextRequest) {
       accuracy,
       studyTimeToday,
       e1Progress,
-      e4Progress,
       e5Progress,
+      e6Progress,
       flashcardsDue,
       examDate: user.examDate || "2026-06-15",
       badges,

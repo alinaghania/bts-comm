@@ -28,8 +28,8 @@ export interface UserProgress {
   correctAnswers: number;
   studyTimeToday: number;
   e1Progress: number;
-  e4Progress: number;
   e5Progress: number;
+  e6Progress: number;
   flashcardsDue: number;
   examDate: string;
   badges: Array<{ id: string; name: string; icon: string; earned: boolean; description: string }>;
@@ -50,8 +50,8 @@ const DEFAULT_PROGRESS: UserProgress = {
   correctAnswers: 0,
   studyTimeToday: 0,
   e1Progress: 0,
-  e4Progress: 0,
   e5Progress: 0,
+  e6Progress: 0,
   flashcardsDue: 0,
   examDate: '2026-06-15',
   badges: [],

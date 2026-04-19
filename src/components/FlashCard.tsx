@@ -16,8 +16,8 @@ export default function FlashCard({ question, answer, onRate, exam }: FlashCardP
 
   const examColors: Record<string, string> = {
     E1: 'from-primary to-purple-700',
-    E4: 'from-secondary to-blue-700',
-    E5: 'from-emerald-500 to-teal-700',
+    E5: 'from-secondary to-blue-700',
+    E6: 'from-emerald-500 to-teal-700',
   };
 
   return (

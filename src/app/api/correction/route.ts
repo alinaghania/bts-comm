@@ -8,37 +8,37 @@ const GRILLES: Record<string, { criteres: { critere: string; maxPoints: number }
   E1: {
     description: "Cultures de la communication (4h, coef 3)",
     criteres: [
-      { critere: "Comprehension du texte", maxPoints: 4 },
-      { critere: "Qualite de l'argumentation", maxPoints: 4 },
-      { critere: "Analyse des procedes de la campagne", maxPoints: 6 },
-      { critere: "Production creative", maxPoints: 6 },
+      { critere: "Reperage et comprehension des positions du corpus", maxPoints: 4 },
+      { critere: "Mise en relation corpus et communication", maxPoints: 4 },
+      { critere: "Analyse des procedes d'une campagne", maxPoints: 6 },
+      { critere: "Conception et redaction d'un message justifie", maxPoints: 6 },
     ],
   },
   E1_PARTIE1: {
     description: "Cultures de la communication - Partie 1 : Analyse de texte (4h, coef 3)",
     criteres: [
-      { critere: "Comprehension du texte", maxPoints: 4 },
-      { critere: "Qualite de l'argumentation", maxPoints: 4 },
-      { critere: "Analyse des procedes de la campagne", maxPoints: 6 },
-      { critere: "Production creative", maxPoints: 6 },
+      { critere: "Reperage et comprehension des positions du corpus", maxPoints: 4 },
+      { critere: "Mise en relation corpus et communication", maxPoints: 4 },
+      { critere: "Analyse des procedes d'une campagne", maxPoints: 6 },
+      { critere: "Conception et redaction d'un message justifie", maxPoints: 6 },
     ],
   },
   E1_PARTIE2: {
     description: "Cultures de la communication - Partie 2 : Production (4h, coef 3)",
     criteres: [
-      { critere: "Comprehension du texte", maxPoints: 4 },
-      { critere: "Qualite de l'argumentation", maxPoints: 4 },
-      { critere: "Analyse des procedes de la campagne", maxPoints: 6 },
-      { critere: "Production creative", maxPoints: 6 },
+      { critere: "Reperage et comprehension des positions du corpus", maxPoints: 4 },
+      { critere: "Mise en relation corpus et communication", maxPoints: 4 },
+      { critere: "Analyse des procedes d'une campagne", maxPoints: 6 },
+      { critere: "Conception et redaction d'un message justifie", maxPoints: 6 },
     ],
   },
-  E4: {
-    description: "Strategie de communication (4h, coef 5)",
+  E5: {
+    description: "Contribution a l'elaboration et au pilotage de la strategie de communication (4h, coef 5)",
     criteres: [
-      { critere: "Diagnostic de communication", maxPoints: 5 },
-      { critere: "Definition objectifs et cibles", maxPoints: 4 },
-      { critere: "Recommandation strategique", maxPoints: 6 },
-      { critere: "Plan de communication et budget", maxPoints: 5 },
+      { critere: "Diagnostic de communication (SWOT, veille, enjeux)", maxPoints: 5 },
+      { critere: "Preconisations strategiques", maxPoints: 5 },
+      { critere: "Plan de communication, moyens et pilotage", maxPoints: 5 },
+      { critere: "Composante droit de la communication", maxPoints: 5 },
     ],
   },
 };
