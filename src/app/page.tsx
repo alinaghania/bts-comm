@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Flame,
   ChevronRight,
@@ -17,6 +18,8 @@ import XPBar from '@/components/XPBar';
 import ProgressRing from '@/components/ProgressRing';
 import Link from 'next/link';
 import { useProgress } from '@/lib/hooks';
+import Onboarding from '@/components/Onboarding';
+import PageGuide from '@/components/PageGuide';
 
 function LoadingSkeleton() {
   return (
@@ -48,6 +51,18 @@ function LoadingSkeleton() {
 
 export default function Dashboard() {
   const { progress, loading } = useProgress();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    if (loading) return;
+    const localCompleted = localStorage.getItem('bts-onboarding-completed');
+    const isNew =
+      !progress.onboarding_completed &&
+      progress.totalQuestions === 0 &&
+      progress.xp === 0 &&
+      !localCompleted;
+    setShowOnboarding(isNew);
+  }, [loading, progress.onboarding_completed, progress.totalQuestions, progress.xp]);
 
   if (loading) return <LoadingSkeleton />;
 
@@ -85,6 +100,13 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-8">
+      {/* Onboarding overlay */}
+      <AnimatePresence>
+        {showOnboarding && (
+          <Onboarding onComplete={() => setShowOnboarding(false)} />
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -252,6 +274,8 @@ export default function Dashboard() {
           </div>
         </motion.div>
       </div>
+
+      <PageGuide page="dashboard" />
     </div>
   );
 }

@@ -37,6 +37,7 @@ export interface UserProgress {
   examHistory: Array<{ date: string; score: number; exam: string; duration: string }>;
   weeklyStudyTime: Array<{ day: string; minutes: number }>;
   skillScores: Array<{ label: string; value: number }>;
+  onboarding_completed: boolean;
 }
 
 const DEFAULT_PROGRESS: UserProgress = {
@@ -73,6 +74,7 @@ const DEFAULT_PROGRESS: UserProgress = {
     { label: 'Production', value: 0 },
     { label: 'Droit', value: 0 },
   ],
+  onboarding_completed: false,
 };
 
 export function useProgress() {

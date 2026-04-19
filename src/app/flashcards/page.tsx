@@ -6,6 +6,7 @@ import { Filter, Box, BarChart3, PartyPopper } from 'lucide-react';
 import FlashCard from '@/components/FlashCard';
 import OpusHelper from '@/components/OpusHelper';
 import { useFlashcards } from '@/lib/hooks';
+import PageGuide from '@/components/PageGuide';
 
 const examFilters = ['Toutes', 'E1', 'E4', 'E5'];
 
@@ -170,6 +171,8 @@ export default function FlashcardsPage() {
           <p className="text-text-muted mt-2">Toutes les cartes ont ete revisees pour aujourd&apos;hui</p>
         </motion.div>
       )}
+
+      <PageGuide page="flashcards" />
     </div>
   );
 }

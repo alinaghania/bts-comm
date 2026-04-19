@@ -8,6 +8,7 @@ import QuizQuestion from '@/components/QuizQuestion';
 import CountdownTimer from '@/components/CountdownTimer';
 import OpusHelper from '@/components/OpusHelper';
 import DidYouKnow from '@/components/DidYouKnow';
+import PageGuide from '@/components/PageGuide';
 
 const funFacts = [
   'Le premier slogan publicitaire date de 1859 : "It\'s finger lickin\' good" n\'existait pas encore, mais les marques commencaient deja a communiquer !',

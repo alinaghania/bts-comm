@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { FileText, Clock, Award, ChevronRight, ArrowLeft, AlertTriangle, Bot, Lightbulb, CheckCircle, Timer, ClipboardList, Loader2 } from 'lucide-react';
+import { FileText, Clock, Award, ChevronRight, ArrowLeft, AlertTriangle, Bot, Lightbulb, CheckCircle, Timer, ClipboardList, Loader2, Camera } from 'lucide-react';
+import Link from 'next/link';
 import CountdownTimer from '@/components/CountdownTimer';
 import OpusHelper from '@/components/OpusHelper';
+import PageGuide from '@/components/PageGuide';
 
 interface ExamConfig {
   id: string;
@@ -237,6 +239,28 @@ export default function ExamensPage() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Correction card */}
+            <Link href="/examens/correction">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                whileHover={{ scale: 1.01 }}
+                className="bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-2xl p-6 flex items-center gap-4 hover:border-primary/40 transition-all cursor-pointer"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
+                  <Camera className="w-7 h-7 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold">Faire corriger ma copie</h3>
+                  <p className="text-sm text-text-muted mt-0.5">
+                    Prends ta copie en photo et Opus la corrige comme un vrai jury BTS
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-text-muted flex-shrink-0" />
+              </motion.div>
+            </Link>
 
             {/* Exam history */}
             <div>

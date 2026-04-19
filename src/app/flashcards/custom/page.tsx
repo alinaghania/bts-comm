@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useUser } from '@/lib/hooks';
+import PageGuide from '@/components/PageGuide';
 
 interface CustomCard {
   id: string;

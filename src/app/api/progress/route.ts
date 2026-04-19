@@ -258,12 +258,13 @@ export async function GET(request: NextRequest) {
       e4Progress,
       e5Progress,
       flashcardsDue,
-      examDate: "2026-06-15",
+      examDate: user.examDate || "2026-06-15",
       badges,
       quizHistory,
       examHistory,
       weeklyStudyTime,
       skillScores,
+      onboarding_completed: user.onboarding_completed || false,
     });
   } catch (error) {
     console.error("GET /api/progress error:", error);
@@ -295,6 +296,7 @@ export async function POST(request: NextRequest) {
       "stats",
       "lastActive",
       "examDate",
+      "onboarding_completed",
     ];
 
     for (const key of allowedFields) {

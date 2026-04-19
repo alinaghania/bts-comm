@@ -6,6 +6,7 @@ import { TrendingUp, TrendingDown, Target, Clock, Brain, Award, BookOpen } from 
 import Badge from '@/components/Badge';
 import Link from 'next/link';
 import { useProgress } from '@/lib/hooks';
+import PageGuide from '@/components/PageGuide';
 
 type SkillScore = { label: string; value: number };
 type WeeklyStudyTime = { day: string; minutes: number };

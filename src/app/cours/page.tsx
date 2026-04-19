@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import ModuleCard from '@/components/ModuleCard';
 import { useProgress } from '@/lib/hooks';
+import PageGuide from '@/components/PageGuide';
 
 const modules = [
   // E1 - Cultures de la communication
@@ -99,6 +100,8 @@ export default function CoursPage() {
           </motion.div>
         ))}
       </div>
+
+      <PageGuide page="cours" />
     </div>
   );
 }

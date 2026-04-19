@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import PageGuide from '@/components/PageGuide';
 import {
   ClipboardCheck,
   CheckCircle2,

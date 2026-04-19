@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Send, Bot, Sparkles } from 'lucide-react';
 import ChatMessage from '@/components/ChatMessage';
+import PageGuide from '@/components/PageGuide';
 
 interface Message {
   role: 'user' | 'assistant';
