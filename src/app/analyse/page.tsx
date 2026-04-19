@@ -320,14 +320,14 @@ Sois direct, bienveillant mais honnete. Utilise des exemples concrets.`;
   if (!data) {
     return (
       <div className="p-4 md:p-8 max-w-5xl mx-auto">
-        <h1 className="text-2xl md:text-3xl font-bold">Analyse Opus</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">Analyse Coline</h1>
         <div className="mt-16 flex flex-col items-center text-center">
           <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
             <Brain className="w-10 h-10 text-primary" />
           </div>
           <h2 className="text-xl font-semibold mb-2">Aucune donnee disponible</h2>
           <p className="text-text-muted max-w-md mb-8">
-            Commence a reviser pour obtenir ton analyse personnalisee par Opus.
+            Commence a reviser pour obtenir ton analyse personnalisee par Coline.
           </p>
           <Link
             href="/quiz"
@@ -350,13 +350,13 @@ Sois direct, bienveillant mais honnete. Utilise des exemples concrets.`;
             <Brain className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold">Analyse Opus</h1>
-            <p className="text-text-muted mt-0.5">Diagnostic complet de ta progression par Claude Opus</p>
+            <h1 className="text-2xl md:text-3xl font-bold">Analyse Coline</h1>
+            <p className="text-text-muted mt-0.5">Diagnostic complet de ta progression par Coline</p>
           </div>
         </div>
       </motion.div>
 
-      {/* Section 1: Diagnostic Opus */}
+      {/* Section 1: Diagnostic Coline */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -366,7 +366,7 @@ Sois direct, bienveillant mais honnete. Utilise des exemples concrets.`;
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Zap className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-semibold">Diagnostic Opus</h2>
+            <h2 className="text-lg font-semibold">Diagnostic Coline</h2>
           </div>
           <button
             onClick={generateDiagnostic}
@@ -381,7 +381,7 @@ Sois direct, bienveillant mais honnete. Utilise des exemples concrets.`;
         {diagnosticLoading ? (
           <div className="flex items-center gap-3 py-8 justify-center">
             <Loader2 className="w-5 h-5 text-primary animate-spin" />
-            <span className="text-sm text-text-muted">Opus analyse tes donnees...</span>
+            <span className="text-sm text-text-muted">Coline analyse tes donnees...</span>
           </div>
         ) : diagnostic ? (
           <div className="prose prose-invert prose-sm max-w-none">

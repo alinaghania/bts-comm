@@ -24,7 +24,7 @@ export default function TuteurPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `Salut ! Je suis **Opus**, ton tuteur IA pour le BTS Communication.
+      content: `Salut ! Je suis **Coline**, je suis la pour t'accompagner dans tes revisions du BTS Communication.
 
 Je peux t'aider a :
 - Comprendre des concepts difficiles
@@ -124,8 +124,8 @@ Qu'est-ce que tu veux travailler aujourd'hui ?`,
             <Bot className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="font-bold">Opus</h1>
-            <p className="text-xs text-text-muted">Tuteur IA - BTS Communication</p>
+            <h1 className="font-bold">Coline</h1>
+            <p className="text-xs text-text-muted">Je suis la pour t'accompagner</p>
           </div>
           <div className="ml-auto flex items-center gap-1 text-xs text-success">
             <span className="w-2 h-2 rounded-full bg-success animate-pulse" />

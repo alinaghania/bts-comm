@@ -27,27 +27,27 @@ const guides: Record<string, { title: string; content: string }> = {
   quiz: {
     title: 'Quiz',
     content:
-      'Configure ton quiz (nombre de questions, mode entrelacement), reponds aux questions et Opus t\'explique chaque reponse. Gagne des XP a chaque bonne reponse.',
+      'Configure ton quiz (nombre de questions, mode entrelacement), reponds aux questions et Coline t\'explique chaque reponse. Gagne des XP a chaque bonne reponse.',
   },
   examens: {
     title: 'Examens',
     content:
-      'Simule l\'examen en conditions reelles avec un chronometre. Tu peux aussi faire corriger ta copie par Opus. Pour l\'E5, un mode preparation oral est disponible avec checklist et grille d\'evaluation.',
+      'Simule l\'examen en conditions reelles avec un chronometre. Tu peux aussi faire corriger ta copie par Coline. Pour l\'E5, un mode preparation oral est disponible avec checklist et grille d\'evaluation.',
   },
   analyse: {
     title: 'Analyse',
     content:
-      'Opus analyse automatiquement tes forces, faiblesses et pieges recurrents. Tu obtiens un diagnostic personnalise et un plan d\'action prioritaire avec temps estime.',
+      'Coline analyse automatiquement tes forces, faiblesses et pieges recurrents. Tu obtiens un diagnostic personnalise et un plan d\'action prioritaire avec temps estime.',
   },
   bilan: {
     title: 'Bilan du jour',
     content:
-      'Apres chaque session, Opus genere un compte-rendu avec tes stats du jour, ce qui a progresse, les points d\'attention et des suggestions concretes pour la prochaine session.',
+      'Apres chaque session, Coline genere un compte-rendu avec tes stats du jour, ce qui a progresse, les points d\'attention et des suggestions concretes pour la prochaine session.',
   },
   tuteur: {
     title: 'Tuteur IA',
     content:
-      'Pose n\'importe quelle question a Opus. Il connait tout le programme BTS Communication. Tu peux lui demander des explications, des exercices, des fiches de revision ou de l\'aide pour tes epreuves.',
+      'Pose n\'importe quelle question a Coline. Elle connait tout le programme BTS Communication. Tu peux lui demander des explications, des exercices, des fiches de revision ou de l\'aide pour tes epreuves.',
   },
   stats: {
     title: 'Statistiques',
@@ -62,7 +62,7 @@ const guides: Record<string, { title: string; content: string }> = {
   'cours-module': {
     title: 'Module de cours',
     content:
-      'Lis le contenu du chapitre, consulte les points cles et valide ta comprehension. Tu peux demander a Opus de t\'expliquer un concept ou de te faire un exercice.',
+      'Lis le contenu du chapitre, consulte les points cles et valide ta comprehension. Tu peux demander a Coline de t\'expliquer un concept ou de te faire un exercice.',
   },
 };
 

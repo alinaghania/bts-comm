@@ -101,7 +101,7 @@ export default function ExamensPage() {
   const [examStarted, setExamStarted] = useState(false);
   const [examHistory, setExamHistory] = useState<ExamHistory[]>([]);
   const [historyLoading, setHistoryLoading] = useState(true);
-  const [showColineCoach, setShowOpusCoach] = useState(false);
+  const [showColineCoach, setShowColineCoach] = useState(false);
   const [currentTip, setCurrentTip] = useState(0);
   const [e5CheckState, setE5CheckState] = useState<Record<string, boolean>>({});
   const [e5OralTimer, setE5OralTimer] = useState(false);
@@ -142,7 +142,7 @@ export default function ExamensPage() {
   const startExam = (exam: ExamConfig) => {
     setActiveExam(exam);
     setPhase('exam');
-    setShowOpusCoach(false);
+    setShowColineCoach(false);
     setCurrentTip(0);
   };
 
@@ -365,7 +365,7 @@ export default function ExamensPage() {
                 </p>
               </div>
 
-              {/* Conseils d'Opus */}
+              {/* Conseils de Coline */}
               <div className="mb-6">
                 <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                   <Bot className="w-4 h-4 text-secondary" /> Conseils de Coline pour l&apos;oral
@@ -585,7 +585,7 @@ export default function ExamensPage() {
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={() => setShowOpusCoach(!showColineCoach)}
+                  onClick={() => setShowColineCoach(!showColineCoach)}
                   className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg"
                 >
                   <Bot className="w-6 h-6 text-white" />

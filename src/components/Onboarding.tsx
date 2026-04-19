@@ -53,25 +53,25 @@ const pageCards = [
   {
     icon: FileText,
     title: 'Examens',
-    description: 'Simule les conditions reelles. Timer 4h. Prends ta copie en photo, Opus la corrige.',
+    description: 'Simule les conditions reelles. Timer 4h. Prends ta copie en photo, Coline la corrige.',
     color: 'from-rose-500 to-rose-700',
   },
   {
     icon: Brain,
     title: 'Analyse',
-    description: 'Opus analyse tes forces, faiblesses, pieges. Plan d\'action personnalise.',
+    description: 'Coline analyse tes forces, faiblesses, pieges. Plan d\'action personnalise.',
     color: 'from-cyan-500 to-cyan-700',
   },
   {
     icon: ClipboardCheck,
     title: 'Bilan',
-    description: 'Apres chaque session, Opus te fait un CR avec conseils pour demain.',
+    description: 'Apres chaque session, Coline te fait un CR avec conseils pour demain.',
     color: 'from-indigo-500 to-indigo-700',
   },
   {
     icon: Bot,
     title: 'Tuteur IA',
-    description: 'Pose n\'importe quelle question a Opus. Il connait TOUT le programme.',
+    description: 'Pose n\'importe quelle question a Coline. Elle connait TOUT le programme.',
     color: 'from-violet-500 to-violet-700',
   },
   {
@@ -200,7 +200,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                 transition={{ delay: 0.3 }}
                 className="text-2xl md:text-3xl font-bold mb-3"
               >
-                Bienvenue sur BTS Comm Ready !
+                Bienvenue sur Projet BTS !
               </motion.h1>
 
               <motion.p
@@ -209,7 +209,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                 transition={{ delay: 0.4 }}
                 className="text-text-muted max-w-md mx-auto mb-8"
               >
-                Je suis Opus, ton tuteur IA. Je vais t&apos;aider a cartonner au BTS Communication.
+                Je suis Coline, je suis la pour t&apos;accompagner dans tes revisions du BTS Communication.
               </motion.p>
 
               <motion.button

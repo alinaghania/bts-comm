@@ -280,7 +280,7 @@ Sois concis (max 200 mots), encourageant mais honnete. Ne mets pas de emojis.`;
         </motion.div>
       )}
 
-      {/* Bilan Opus */}
+      {/* Bilan Coline */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -290,7 +290,7 @@ Sois concis (max 200 mots), encourageant mais honnete. Ne mets pas de emojis.`;
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Zap className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-semibold">Bilan Opus</h2>
+            <h2 className="text-lg font-semibold">Bilan Coline</h2>
           </div>
           <button
             onClick={generateBilan}
@@ -305,7 +305,7 @@ Sois concis (max 200 mots), encourageant mais honnete. Ne mets pas de emojis.`;
         {bilanLoading ? (
           <div className="flex items-center gap-3 py-8 justify-center">
             <Loader2 className="w-5 h-5 text-primary animate-spin" />
-            <span className="text-sm text-text-muted">Opus prepare ton bilan...</span>
+            <span className="text-sm text-text-muted">Coline prepare ton bilan...</span>
           </div>
         ) : bilan ? (
           <div className="whitespace-pre-wrap text-sm leading-relaxed text-text/90">
