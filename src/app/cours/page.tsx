@@ -3,41 +3,58 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import ModuleCard from '@/components/ModuleCard';
+import { useProgress } from '@/lib/hooks';
 
 const modules = [
   // E1 - Cultures de la communication
-  { id: 'cultures-com', title: 'Cultures de la communication', exam: 'E1', progress: 75, chapters: 8 },
-  { id: 'expression-ecrite', title: 'Expression ecrite', exam: 'E1', progress: 60, chapters: 6 },
-  { id: 'sciences-humaines', title: 'Sciences humaines appliquees', exam: 'E1', progress: 45, chapters: 7 },
-  { id: 'droit-com', title: 'Droit de la communication', exam: 'E1', progress: 30, chapters: 5 },
-  { id: 'veille-operationnelle', title: 'Veille operationnelle', exam: 'E1', progress: 55, chapters: 4 },
+  { id: 'theories-com', title: 'Theories de la communication (Shannon, Lasswell, Jakobson, Palo Alto)', exam: 'E1', chapters: 6 },
+  { id: 'semiologie', title: 'Semiologie (Saussure, Barthes, Peirce)', exam: 'E1', chapters: 5 },
+  { id: 'rhetorique', title: 'Rhetorique & figures de style', exam: 'E1', chapters: 4 },
+  { id: 'argumentation', title: 'Argumentation & persuasion', exam: 'E1', chapters: 4 },
+  { id: 'medias-enjeux', title: 'Medias et enjeux societaux', exam: 'E1', chapters: 5 },
+  { id: 'methodologie-e1', title: 'Methodologie E1 (analyse texte, dissertation, production creative)', exam: 'E1', chapters: 6 },
+  { id: 'thematiques-2026', title: 'Thematiques 2026 ("A table", "La rue", "L\'exces")', exam: 'E1', chapters: 3 },
 
-  // E4 - Relations commerciales
-  { id: 'strategie-com', title: 'Strategie de communication', exam: 'E4', progress: 50, chapters: 9 },
-  { id: 'marketing', title: 'Marketing & etudes de marche', exam: 'E4', progress: 40, chapters: 6 },
-  { id: 'media-planning', title: 'Media planning', exam: 'E4', progress: 35, chapters: 5 },
-  { id: 'budget-com', title: 'Budget de communication', exam: 'E4', progress: 20, chapters: 4 },
-  { id: 'relation-client', title: 'Relation client & negociation', exam: 'E4', progress: 0, chapters: 6, locked: true },
+  // E4 - Strategie de communication
+  { id: 'veille-operationnelle', title: 'Veille operationnelle & strategique', exam: 'E4', chapters: 4 },
+  { id: 'diagnostic', title: 'Diagnostic (SWOT, PESTEL)', exam: 'E4', chapters: 5 },
+  { id: 'positionnement', title: 'Positionnement, objectifs, cibles', exam: 'E4', chapters: 4 },
+  { id: 'types-com', title: 'Types de communication (institutionnelle, commerciale, interne, crise)', exam: 'E4', chapters: 6 },
+  { id: 'moyens-medias', title: 'Moyens medias & hors-medias', exam: 'E4', chapters: 5 },
+  { id: 'recommandation', title: 'Recommandation strategique & copy strategy', exam: 'E4', chapters: 5 },
+  { id: 'plan-com', title: 'Plan de communication, budget, planning', exam: 'E4', chapters: 4 },
+  { id: 'droit-com', title: 'Droit de la communication', exam: 'E4', chapters: 5 },
 
-  // E5 - Activites de communication
-  { id: 'production-com', title: 'Production de supports', exam: 'E5', progress: 45, chapters: 7 },
-  { id: 'pao-web', title: 'PAO & Web design', exam: 'E5', progress: 35, chapters: 8 },
-  { id: 'audiovisuel', title: 'Production audiovisuelle', exam: 'E5', progress: 25, chapters: 5 },
-  { id: 'evenementiel', title: 'Communication evenementielle', exam: 'E5', progress: 15, chapters: 6 },
-  { id: 'rp-com-crise', title: 'RP & communication de crise', exam: 'E5', progress: 0, chapters: 4, locked: true },
+  // E5 - Portfolio oral
+  { id: 'portfolio-numerique', title: 'Construire son portfolio numerique', exam: 'E5', chapters: 4 },
+  { id: 'fiches-descriptives', title: 'Rediger ses 3 fiches descriptives', exam: 'E5', chapters: 3 },
+  { id: 'presentation-orale', title: 'Technique de presentation orale', exam: 'E5', chapters: 4 },
+  { id: 'grille-evaluation', title: "Grille d'evaluation & criteres", exam: 'E5', chapters: 3 },
 ];
 
 const tabs = [
   { id: 'all', label: 'Tous' },
   { id: 'E1', label: 'E1 - Cultures' },
-  { id: 'E4', label: 'E4 - Relations' },
-  { id: 'E5', label: 'E5 - Activites' },
+  { id: 'E4', label: 'E4 - Strategie' },
+  { id: 'E5', label: 'E5 - Portfolio' },
 ];
 
 export default function CoursPage() {
   const [activeTab, setActiveTab] = useState('all');
+  const { progress, loading } = useProgress();
 
   const filtered = activeTab === 'all' ? modules : modules.filter((m) => m.exam === activeTab);
+
+  // Progress comes from DB via useProgress, mapped per exam
+  const getModuleProgress = (exam: string): number => {
+    if (loading) return 0;
+    switch (exam) {
+      case 'E1': return progress.e1Progress;
+      case 'E4': return progress.e4Progress;
+      case 'E5': return progress.e5Progress;
+      default: return 0;
+    }
+  };
 
   return (
     <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-8">
@@ -76,9 +93,8 @@ export default function CoursPage() {
               id={mod.id}
               title={mod.title}
               exam={mod.exam}
-              progress={mod.progress}
+              progress={getModuleProgress(mod.exam)}
               chapters={mod.chapters}
-              locked={'locked' in mod ? mod.locked : false}
             />
           </motion.div>
         ))}

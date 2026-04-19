@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { motion } from 'motion/react';
 import { Filter, Box, BarChart3 } from 'lucide-react';
 import FlashCard from '@/components/FlashCard';
+import OpusHelper from '@/components/OpusHelper';
 import { useFlashcards } from '@/lib/hooks';
 
 const examFilters = ['Toutes', 'E1', 'E4', 'E5'];
@@ -11,7 +12,7 @@ const examFilters = ['Toutes', 'E1', 'E4', 'E5'];
 export default function FlashcardsPage() {
   const [examFilter, setExamFilter] = useState<string>('Toutes');
   const activeExam = examFilter === 'Toutes' ? undefined : examFilter;
-  const { dueToday, mastered, learning, flashcards } = useFlashcards(activeExam);
+  const { dueToday, mastered, learning, flashcards, rateCard, refetch } = useFlashcards(activeExam);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [reviewed, setReviewed] = useState(0);
@@ -20,6 +21,9 @@ export default function FlashcardsPage() {
   const currentCard = currentCards[currentIndex];
 
   const handleRate = useCallback((quality: number) => {
+    if (currentCard) {
+      rateCard(currentCard.id, quality).then(() => refetch());
+    }
     setReviewed((r) => r + 1);
     // Move to next card
     if (currentIndex < currentCards.length - 1) {
@@ -27,9 +31,7 @@ export default function FlashcardsPage() {
     } else {
       setCurrentIndex(0);
     }
-    // In a real app, update the card's box based on SM-2 algorithm
-    void quality;
-  }, [currentIndex, currentCards.length]);
+  }, [currentIndex, currentCards.length, currentCard, rateCard, refetch]);
 
   // Leitner box visualization
   const boxes = [1, 2, 3, 4, 5];
@@ -141,12 +143,20 @@ export default function FlashcardsPage() {
 
       {/* Card */}
       {currentCard ? (
-        <FlashCard
-          question={currentCard.question}
-          answer={currentCard.answer}
-          exam={currentCard.exam}
-          onRate={handleRate}
-        />
+        <div className="space-y-4">
+          <FlashCard
+            question={currentCard.question}
+            answer={currentCard.answer}
+            exam={currentCard.exam}
+            onRate={handleRate}
+          />
+          <div className="flex justify-center">
+            <OpusHelper
+              context={`Concept a expliquer pour un etudiant en BTS Communication :\nQuestion : ${currentCard.question}\nReponse : ${currentCard.answer}\nExplique ce concept avec une analogie simple et des exemples concrets du monde de la communication.`}
+              type="concept"
+            />
+          </div>
+        </div>
       ) : (
         <motion.div
           initial={{ opacity: 0 }}

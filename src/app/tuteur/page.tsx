@@ -19,45 +19,6 @@ const suggestedPrompts = [
   'Resume le modele de Shannon et Weaver',
 ];
 
-const aiResponses: Record<string, string> = {
-  'Explique-moi les 6 fonctions de Jakobson': `**Les 6 fonctions du langage de Jakobson**
-
-Roman Jakobson a identifie 6 fonctions du langage, chacune liee a un element de la communication :
-
-- **Referentielle** (contexte) : informer, decrire la realite objective
-- **Emotive/expressive** (emetteur) : exprimer les sentiments, l'attitude de l'emetteur
-- **Conative** (recepteur) : agir sur le destinataire (ordre, priere, question)
-- **Phatique** (canal) : etablir, maintenir ou rompre le contact ("Allo ?", "Tu m'ecoutes ?")
-- **Metalinguistique** (code) : parler du langage lui-meme ("Que signifie ce mot ?")
-- **Poetique** (message) : attirer l'attention sur la forme du message (jeux de mots, rimes)
-
-En publicite, on retrouve souvent la fonction conative (pousser a l'achat), la fonction poetique (slogan memorable) et la fonction emotive (creer une connexion emotionnelle).`,
-
-  'Quels sont mes points faibles ?': `D'apres tes resultats, voici une analyse de tes points faibles :
-
-- **Sociologie des medias** : tu as 45% de reussite sur ce module. Je te recommande de revoir les theories d'agenda-setting et de la spirale du silence.
-- **Budget de communication** : seulement 20% de progression. C'est un sujet technique mais important pour E4.
-- **Production audiovisuelle** : 25% de progression. Revois les etapes de production et les formats.
-
-**Mon conseil :** Concentre-toi sur 1 point faible par semaine. Commence par la sociologie des medias car c'est fondamental pour E1.`,
-
-  'Fais-moi un exercice sur le SWOT': `**Exercice pratique : Analyse SWOT**
-
-Voici le cas : Une boulangerie artisanale "Le Pain Dore" veut developper sa communication.
-
-**Contexte :**
-- Boulangerie familiale depuis 30 ans dans un quartier residentiel
-- Produits bio et locaux, pain au levain
-- Pas de presence sur les reseaux sociaux
-- Un concurrent (chaine) vient d'ouvrir a 200m
-- Le quartier accueille de nouveaux habitants (jeunes actifs)
-
-**Travail demande :**
-Realise l'analyse SWOT complete de cette boulangerie.
-
-Quand tu auras fini, dis-moi et je te donnerai la correction !`,
-};
-
 export default function TuteurPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -81,28 +42,67 @@ Qu'est-ce que tu veux travailler aujourd'hui ?`,
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const sendMessage = (text: string) => {
+  const sendMessage = async (text: string) => {
     if (!text.trim()) return;
 
     const userMsg: Message = { role: 'user', content: text };
-    setMessages((prev) => [...prev, userMsg]);
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const response = aiResponses[text] || `Bonne question ! Voici ce que je peux te dire sur "${text}" :
+    try {
+      // Build conversation history (skip the initial system greeting)
+      const apiMessages = updatedMessages
+        .filter((m) => !(m.role === 'assistant' && updatedMessages.indexOf(m) === 0))
+        .map((m) => ({ role: m.role, content: m.content }));
 
-C'est un sujet important pour le BTS Communication. Pour bien le maitriser, je te recommande de :
-- Revoir le cours correspondant dans la section "Cours"
-- Faire les flashcards associees
-- S'entrainer avec des quiz
+      const res = await fetch('/api/tutor', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-id': localStorage.getItem('bts-user-id') || '',
+        },
+        body: JSON.stringify({
+          messages: apiMessages,
+          context: 'default',
+        }),
+      });
 
-N'hesite pas a me poser des questions plus precises pour que je puisse t'aider au mieux !`;
+      if (res.ok && res.body) {
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let result = '';
 
-      setMessages((prev) => [...prev, { role: 'assistant', content: response }]);
+        // Add a placeholder assistant message that we update progressively
+        setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
+        setIsTyping(false);
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          result += decoder.decode(value, { stream: true });
+          const streamedResult = result;
+          setMessages((prev) => {
+            const copy = [...prev];
+            copy[copy.length - 1] = { role: 'assistant', content: streamedResult };
+            return copy;
+          });
+        }
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          { role: 'assistant', content: "Desole, je n'ai pas pu repondre. Reessaie dans un instant !" },
+        ]);
+        setIsTyping(false);
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { role: 'assistant', content: "Desole, une erreur s'est produite. Reessaie !" },
+      ]);
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {

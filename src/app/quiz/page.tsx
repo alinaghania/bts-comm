@@ -5,6 +5,16 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Settings, Shuffle, Trophy, Clock, RotateCcw, ChevronRight } from 'lucide-react';
 import QuizQuestion from '@/components/QuizQuestion';
 import CountdownTimer from '@/components/CountdownTimer';
+import OpusHelper from '@/components/OpusHelper';
+import DidYouKnow from '@/components/DidYouKnow';
+
+const funFacts = [
+  'Le premier slogan publicitaire date de 1859 : "It\'s finger lickin\' good" n\'existait pas encore, mais les marques commencaient deja a communiquer !',
+  'En moyenne, un Francais est expose a plus de 1 200 messages publicitaires par jour. Ton cerveau en filtre 99% inconsciemment.',
+  'Le logo Nike "Swoosh" a ete cree en 1971 par une etudiante en graphisme pour seulement 35 dollars.',
+  'Le mot "communication" vient du latin "communicare" qui signifie "mettre en commun". C\'est l\'essence meme du metier !',
+  'La premiere publicite televisee en France a ete diffusee le 1er octobre 1968 pour la marque Boursin.',
+];
 
 interface Question {
   question: string;
@@ -244,6 +254,25 @@ export default function QuizPage() {
               />
             </div>
 
+            {/* Opus Helper (appears when answered) */}
+            {answers.length > currentQ && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-3"
+              >
+                <OpusHelper
+                  context={`Question: ${questions[currentQ].question}\nOptions: ${questions[currentQ].options.map((o, i) => `${String.fromCharCode(65 + i)}) ${o}`).join(', ')}\nBonne reponse: ${questions[currentQ].options[questions[currentQ].correctIndex]}\nExplication du cours: ${questions[currentQ].explanation}\nL'etudiant a ${answers[currentQ] ? 'bien repondu' : 'mal repondu'}.`}
+                  type="question"
+                />
+              </motion.div>
+            )}
+
+            {/* Fun fact between questions */}
+            {answers.length > currentQ && currentQ < questions.length - 1 && currentQ % 3 === 1 && (
+              <DidYouKnow fact={funFacts[currentQ % funFacts.length]} />
+            )}
+
             {/* Next button (appears when answered) */}
             {answers.length > currentQ && (
               <motion.button
@@ -312,12 +341,17 @@ export default function QuizPage() {
                     <span className={`text-sm font-bold ${answers[i] ? 'text-success' : 'text-danger'}`}>
                       {answers[i] ? '&#10003;' : '&#10007;'}
                     </span>
-                    <div>
+                    <div className="flex-1">
                       <p className="text-sm font-medium">{q.question}</p>
                       <p className="text-xs text-text-muted mt-1">
                         Reponse : {q.options[q.correctIndex]}
                       </p>
                     </div>
+                    <OpusHelper
+                      context={`Question: ${q.question}\nOptions: ${q.options.map((o, j) => `${String.fromCharCode(65 + j)}) ${o}`).join(', ')}\nBonne reponse: ${q.options[q.correctIndex]}\nExplication: ${q.explanation}`}
+                      type="question"
+                      compact
+                    />
                   </div>
                 </div>
               ))}

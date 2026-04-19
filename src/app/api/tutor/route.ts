@@ -34,8 +34,8 @@ Ton rôle :
 
 Matières du BTS Communication :
 - E1 : Cultures de la Communication (culture générale, expression)
-- E4 : Relations Commerciales (négociation, conseil, achat d'espace)
-- E5 : Activités de Communication (projet de communication, production)
+- E4 : Strategie de communication (négociation, conseil, achat d'espace)
+- E5 : Portfolio oral (projet de communication, production)
 - E6 : Veille Opérationnelle (recherche, analyse, veille)
 
 Réponds en français. Sois pédagogique et structuré.`,
@@ -51,8 +51,8 @@ Ton rôle :
 
 Épreuves du BTS Communication :
 - E1 : Cultures de la Communication (coeff. 3, écrit 4h)
-- E4 : Relations Commerciales (coeff. 4, oral)
-- E5 : Activités de Communication (coeff. 4, dossier + oral)
+- E4 : Strategie de communication (coeff. 4, oral)
+- E5 : Portfolio oral (coeff. 4, dossier + oral)
 - E6 : Veille Opérationnelle (coeff. 3, écrit 3h)
 
 Réponds en français. Sois concret et actionnable.`,
@@ -70,7 +70,7 @@ Réponds en français. Sois analytique mais bienveillant.`,
 
   default: `Tu es un tuteur expert du BTS Communication. Tu aides l'étudiant à comprendre les concepts, tu expliques les réponses aux questions, tu donnes des conseils personnalisés. Tu es bienveillant mais exigeant. Tu parles en français. Tu identifies les points faibles et tu proposes des exercices ciblés.
 
-Matières : E1 (Cultures de la Communication), E4 (Relations Commerciales), E5 (Activités de Communication), E6 (Veille Opérationnelle).`,
+Matières : E1 (Cultures de la Communication), E4 (Strategie de communication), E5 (Portfolio oral), E6 (Veille Opérationnelle).`,
 };
 
 export async function POST(request: NextRequest) {
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { messages, context } = body;
+    const { messages, context, systemOverride } = body;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return Response.json(
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
     }
 
     const systemPrompt =
-      SYSTEM_PROMPTS[context as string] || SYSTEM_PROMPTS.default;
+      systemOverride || SYSTEM_PROMPTS[context as string] || SYSTEM_PROMPTS.default;
 
     // Streaming de la réponse avec le SDK Anthropic
     const stream = client.messages.stream({

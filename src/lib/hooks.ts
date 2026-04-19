@@ -1,15 +1,12 @@
 'use client';
-
 import { useState, useEffect, useCallback } from 'react';
 
-// Generate a random user ID
 function generateUserId(): string {
   return 'user_' + Math.random().toString(36).substring(2, 15);
 }
 
 export function useUser() {
   const [userId, setUserId] = useState<string | null>(null);
-
   useEffect(() => {
     let stored = localStorage.getItem('bts-user-id');
     if (!stored) {
@@ -18,7 +15,6 @@ export function useUser() {
     }
     setUserId(stored);
   }, []);
-
   return { userId };
 }
 
@@ -27,42 +23,99 @@ export interface UserProgress {
   xp: number;
   xpToNext: number;
   streak: number;
+  lastActivity: string;
   totalQuestions: number;
-  accuracy: number;
+  correctAnswers: number;
   studyTimeToday: number;
   e1Progress: number;
   e4Progress: number;
   e5Progress: number;
   flashcardsDue: number;
   examDate: string;
+  badges: Array<{ id: string; name: string; icon: string; earned: boolean; description: string }>;
+  quizHistory: Array<{ date: string; score: number; total: number; exam: string }>;
+  examHistory: Array<{ date: string; score: number; exam: string; duration: string }>;
+  weeklyStudyTime: Array<{ day: string; minutes: number }>;
+  skillScores: Array<{ label: string; value: number }>;
 }
+
+const DEFAULT_PROGRESS: UserProgress = {
+  level: 1,
+  xp: 0,
+  xpToNext: 100,
+  streak: 0,
+  lastActivity: '',
+  totalQuestions: 0,
+  correctAnswers: 0,
+  studyTimeToday: 0,
+  e1Progress: 0,
+  e4Progress: 0,
+  e5Progress: 0,
+  flashcardsDue: 0,
+  examDate: '2026-06-15',
+  badges: [],
+  quizHistory: [],
+  examHistory: [],
+  weeklyStudyTime: [
+    { day: 'Lun', minutes: 0 },
+    { day: 'Mar', minutes: 0 },
+    { day: 'Mer', minutes: 0 },
+    { day: 'Jeu', minutes: 0 },
+    { day: 'Ven', minutes: 0 },
+    { day: 'Sam', minutes: 0 },
+    { day: 'Dim', minutes: 0 },
+  ],
+  skillScores: [
+    { label: 'Theories', value: 0 },
+    { label: 'Semiotique', value: 0 },
+    { label: 'Strategie', value: 0 },
+    { label: 'Digital', value: 0 },
+    { label: 'Production', value: 0 },
+    { label: 'Droit', value: 0 },
+  ],
+};
 
 export function useProgress() {
   const { userId } = useUser();
-  const [progress, setProgress] = useState<UserProgress>({
-    level: 7,
-    xp: 2450,
-    xpToNext: 3000,
-    streak: 12,
-    totalQuestions: 847,
-    accuracy: 78,
-    studyTimeToday: 45,
-    e1Progress: 62,
-    e4Progress: 45,
-    e5Progress: 38,
-    flashcardsDue: 23,
-    examDate: '2026-06-15',
-  });
-  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState<UserProgress>(DEFAULT_PROGRESS);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchProgress = useCallback(async () => {
     if (!userId) return;
-    // In a real app, fetch from API with x-user-id header
-    // For now, use default data
-    setLoading(false);
+    try {
+      const res = await fetch('/api/progress', {
+        headers: { 'x-user-id': userId },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setProgress({ ...DEFAULT_PROGRESS, ...data });
+      }
+    } catch (e) {
+      console.error('Failed to fetch progress:', e);
+    } finally {
+      setLoading(false);
+    }
   }, [userId]);
 
-  return { progress, loading, setProgress };
+  useEffect(() => {
+    fetchProgress();
+  }, [fetchProgress]);
+
+  const updateProgress = useCallback(async (updates: Partial<UserProgress>) => {
+    if (!userId) return;
+    try {
+      await fetch('/api/progress', {
+        method: 'POST',
+        headers: { 'x-user-id': userId, 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
+      });
+      setProgress(prev => ({ ...prev, ...updates }));
+    } catch (e) {
+      console.error('Failed to update progress:', e);
+    }
+  }, [userId]);
+
+  return { progress, loading, updateProgress, refetch: fetchProgress };
 }
 
 export interface Flashcard {
@@ -75,44 +128,94 @@ export interface Flashcard {
   nextReview: string;
 }
 
-export function useFlashcards(exam?: string, module?: string) {
+export function useFlashcards(exam?: string) {
   const { userId } = useUser();
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadFlashcards = useCallback(() => {
-    // Mock flashcard data
-    const allCards: Flashcard[] = [
-      { id: '1', question: 'Quelles sont les 6 fonctions du langage selon Jakobson ?', answer: 'Referentielle, emotive, conative, phatique, metalinguistique, poetique', exam: 'E1', module: 'com-ecrite', box: 1, nextReview: '2026-04-19' },
-      { id: '2', question: 'Qu\'est-ce que le SWOT ?', answer: 'Strengths (Forces), Weaknesses (Faiblesses), Opportunities (Opportunites), Threats (Menaces) - Outil d\'analyse strategique', exam: 'E4', module: 'strategie', box: 2, nextReview: '2026-04-19' },
-      { id: '3', question: 'Definir le positionnement en communication', answer: 'Place qu\'occupe une marque/produit dans l\'esprit du consommateur par rapport a la concurrence', exam: 'E4', module: 'strategie', box: 1, nextReview: '2026-04-19' },
-      { id: '4', question: 'Qu\'est-ce que la ligne editoriale ?', answer: 'Ensemble des choix et decisions qui definissent l\'identite d\'un media : ton, sujets, angle, frequence, cible', exam: 'E1', module: 'veille', box: 3, nextReview: '2026-04-20' },
-      { id: '5', question: 'Citer les etapes d\'un plan de communication', answer: 'Diagnostic, objectifs, cible, strategie, moyens/actions, planning, budget, evaluation', exam: 'E4', module: 'strategie', box: 1, nextReview: '2026-04-19' },
-      { id: '6', question: 'Qu\'est-ce que le brief creatif ?', answer: 'Document de synthese remis a l\'equipe creative qui resume la problematique, les objectifs, la cible, le message et les contraintes', exam: 'E5', module: 'production', box: 2, nextReview: '2026-04-19' },
-      { id: '7', question: 'Definir l\'identite visuelle', answer: 'Ensemble des elements graphiques qui permettent d\'identifier une marque : logo, couleurs, typographie, iconographie', exam: 'E5', module: 'production', box: 1, nextReview: '2026-04-19' },
-      { id: '8', question: 'Qu\'est-ce que la semiotique ?', answer: 'Science qui etudie les signes et leur signification dans la communication', exam: 'E1', module: 'com-ecrite', box: 4, nextReview: '2026-04-22' },
-      { id: '9', question: 'Les 5 axes de la communication digitale ?', answer: 'Site web, reseaux sociaux, emailing, SEO/SEA, content marketing', exam: 'E4', module: 'digital', box: 2, nextReview: '2026-04-19' },
-      { id: '10', question: 'Qu\'est-ce qu\'un cahier des charges ?', answer: 'Document contractuel qui definit les specifications, contraintes et attentes d\'un projet de communication', exam: 'E5', module: 'production', box: 3, nextReview: '2026-04-21' },
-      { id: '11', question: 'Definir la communication institutionnelle', answer: 'Communication qui vise a promouvoir l\'image et les valeurs de l\'organisation aupres de ses differents publics', exam: 'E1', module: 'cultures', box: 1, nextReview: '2026-04-19' },
-      { id: '12', question: 'Qu\'est-ce que le storytelling ?', answer: 'Technique de communication qui utilise la narration pour transmettre un message et creer une connexion emotionnelle', exam: 'E4', module: 'strategie', box: 2, nextReview: '2026-04-19' },
-    ];
-
-    let filtered = allCards;
-    if (exam) filtered = filtered.filter(c => c.exam === exam);
-    if (module) filtered = filtered.filter(c => c.module === module);
-
-    setFlashcards(filtered);
-    setLoading(false);
-  }, [exam, module]);
+  const loadFlashcards = useCallback(async () => {
+    if (!userId) return;
+    try {
+      const params = new URLSearchParams();
+      if (exam) params.set('exam', exam);
+      const res = await fetch(`/api/flashcards?${params}`, {
+        headers: { 'x-user-id': userId },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setFlashcards(data.cards || []);
+      }
+    } catch (e) {
+      console.error('Failed to fetch flashcards:', e);
+    } finally {
+      setLoading(false);
+    }
+  }, [userId, exam]);
 
   useEffect(() => {
-    if (!userId) return;
     loadFlashcards();
-  }, [userId, loadFlashcards]);
+  }, [loadFlashcards]);
 
-  const dueToday = flashcards.filter(c => c.nextReview <= '2026-04-19');
+  const rateCard = useCallback(async (cardId: string, quality: number) => {
+    if (!userId) return;
+    try {
+      await fetch('/api/flashcards', {
+        method: 'POST',
+        headers: { 'x-user-id': userId, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cardId, quality }),
+      });
+    } catch (e) {
+      console.error('Failed to rate card:', e);
+    }
+  }, [userId]);
+
+  const today = new Date().toISOString().split('T')[0];
+  const dueToday = flashcards.filter(c => c.nextReview <= today);
   const mastered = flashcards.filter(c => c.box >= 4);
   const learning = flashcards.filter(c => c.box < 4);
 
-  return { flashcards, dueToday, mastered, learning, loading, setFlashcards };
+  return { flashcards, dueToday, mastered, learning, loading, rateCard, refetch: loadFlashcards };
+}
+
+// Hook for sending messages to AI tutor
+export function useTutor() {
+  const { userId } = useUser();
+  const [loading, setLoading] = useState(false);
+
+  const sendMessage = useCallback(async (
+    messages: Array<{ role: 'user' | 'assistant'; content: string }>,
+    context?: string
+  ): Promise<string> => {
+    if (!userId) return '';
+    setLoading(true);
+    try {
+      const res = await fetch('/api/tutor', {
+        method: 'POST',
+        headers: { 'x-user-id': userId, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages, context }),
+      });
+      if (res.ok) {
+        // Read streaming response
+        const reader = res.body?.getReader();
+        const decoder = new TextDecoder();
+        let result = '';
+        if (reader) {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            result += decoder.decode(value, { stream: true });
+          }
+        }
+        return result || await res.text();
+      }
+      return 'Erreur de connexion avec le tuteur IA.';
+    } catch (e) {
+      console.error('Tutor error:', e);
+      return 'Erreur de connexion avec le tuteur IA.';
+    } finally {
+      setLoading(false);
+    }
+  }, [userId]);
+
+  return { sendMessage, loading };
 }

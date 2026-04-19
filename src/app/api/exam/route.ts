@@ -43,7 +43,7 @@ const EXAM_CONFIG: Record<
       "Épreuve écrite portant sur la culture générale et l'expression en lien avec la communication.",
   },
   e4: {
-    name: "E4 - Relations Commerciales",
+    name: "E4 - Strategie de communication",
     duration: 40, // oral
     coefficient: 4,
     modules: [
@@ -58,7 +58,7 @@ const EXAM_CONFIG: Record<
       "Épreuve portant sur la relation commerciale dans le secteur de la communication.",
   },
   e5: {
-    name: "E5 - Activités de Communication",
+    name: "E5 - Portfolio oral",
     duration: 40,
     coefficient: 4,
     modules: [

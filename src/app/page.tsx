@@ -18,8 +18,38 @@ import ProgressRing from '@/components/ProgressRing';
 import Link from 'next/link';
 import { useProgress } from '@/lib/hooks';
 
+function LoadingSkeleton() {
+  return (
+    <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-8 animate-pulse">
+      <div className="flex justify-between items-center">
+        <div>
+          <div className="h-8 w-64 bg-bg-card rounded-lg" />
+          <div className="h-4 w-48 bg-bg-card rounded-lg mt-2" />
+        </div>
+        <div className="w-14 h-14 bg-bg-card rounded-2xl" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="h-20 bg-bg-card rounded-2xl" />
+        <div className="h-20 bg-bg-card rounded-2xl" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="h-44 bg-bg-card rounded-2xl" />
+        <div className="h-44 bg-bg-card rounded-2xl" />
+        <div className="h-44 bg-bg-card rounded-2xl" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="h-36 bg-bg-card rounded-2xl" />
+        <div className="h-36 bg-bg-card rounded-2xl" />
+        <div className="h-36 bg-bg-card rounded-2xl" />
+      </div>
+    </div>
+  );
+}
+
 export default function Dashboard() {
-  const { progress } = useProgress();
+  const { progress, loading } = useProgress();
+
+  if (loading) return <LoadingSkeleton />;
 
   // Calculate days until exam
   const examDate = new Date(progress.examDate);
@@ -37,7 +67,7 @@ export default function Dashboard() {
     },
     {
       id: 'E4',
-      name: 'Relations commerciales',
+      name: 'Strategie de communication',
       progress: progress.e4Progress,
       color: 'from-secondary to-blue-700',
       border: 'border-secondary/20',
@@ -45,7 +75,7 @@ export default function Dashboard() {
     },
     {
       id: 'E5',
-      name: 'Activites de communication',
+      name: 'Portfolio oral',
       progress: progress.e5Progress,
       color: 'from-emerald-500 to-teal-700',
       border: 'border-success/20',
@@ -72,7 +102,11 @@ export default function Dashboard() {
               <Flame className="inline w-7 h-7 text-warning" />
             </motion.span>
           </h1>
-          <p className="text-text-muted mt-1">Continue comme ca, tu progresses bien !</p>
+          <p className="text-text-muted mt-1">
+            {progress.xp === 0 && progress.streak === 0
+              ? 'Bienvenue ! Lance-toi dans ta premiere revision.'
+              : 'Continue comme ca, tu progresses bien !'}
+          </p>
         </div>
         <StreakBadge days={progress.streak} size="lg" />
       </motion.div>
@@ -201,13 +235,13 @@ export default function Dashboard() {
               <span className="text-xs text-text-muted flex items-center gap-2">
                 <Target className="w-3.5 h-3.5" /> Questions
               </span>
-              <span className="text-sm font-bold">{progress.totalQuestions > 0 ? 24 : 0}</span>
+              <span className="text-sm font-bold">{progress.totalQuestions}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-xs text-text-muted flex items-center gap-2">
                 <TrendingUp className="w-3.5 h-3.5" /> Precision
               </span>
-              <span className="text-sm font-bold text-success">{progress.accuracy}%</span>
+              <span className="text-sm font-bold text-success">{progress.totalQuestions > 0 ? Math.round((progress.correctAnswers / progress.totalQuestions) * 100) : 0}%</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-xs text-text-muted flex items-center gap-2">

@@ -58,20 +58,28 @@ export async function GET(request: NextRequest) {
     const db = await getDb();
     const now = new Date();
 
-    // Construire le filtre
-    const filter: Record<string, unknown> = {
-      userId,
-      nextReview: { $lte: now.toISOString() },
-    };
+    // Construire le filtre - retourner TOUTES les cartes de l'utilisateur
+    const filter: Record<string, unknown> = { userId };
     if (exam) filter.exam = exam;
     if (module) filter.module = module;
 
-    // Récupérer les cartes à réviser
-    const cards = await db
+    // Récupérer toutes les cartes (le client filtre les dues)
+    const rawCards = await db
       .collection("flashcard_progress")
       .find(filter)
       .sort({ nextReview: 1 })
       .toArray();
+
+    // Map to client format with box computed from repetitions
+    const cards = rawCards.map((c) => ({
+      id: c.cardId || c._id?.toString(),
+      question: c.question || "",
+      answer: c.answer || "",
+      exam: c.exam || "",
+      module: c.module || "",
+      box: Math.min(c.repetitions || 0, 5),
+      nextReview: c.nextReview || now.toISOString(),
+    }));
 
     return Response.json({ cards, count: cards.length });
   } catch (error) {
