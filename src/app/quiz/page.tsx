@@ -9,6 +9,7 @@ import CountdownTimer from '@/components/CountdownTimer';
 import ColineHelper from '@/components/ColineHelper';
 import DidYouKnow from '@/components/DidYouKnow';
 import PageGuide from '@/components/PageGuide';
+import { getAllQuizQuestions } from '@/lib/course-data';
 
 const funFacts = [
   'Le premier slogan publicitaire date de 1859 : "It\'s finger lickin\' good" n\'existait pas encore, mais les marques commencaient deja a communiquer !',
@@ -26,88 +27,14 @@ interface Question {
   module: string;
 }
 
-const questionBank: Question[] = [
-  {
-    question: 'Quel modele de communication introduit la notion de "bruit" ?',
-    options: ['Le modele de Jakobson', 'Le modele de Shannon et Weaver', 'Le modele de Lasswell', 'Le modele de Palo Alto'],
-    correctIndex: 1,
-    explanation: 'Le modele de Shannon et Weaver (1949) est le premier modele mathematique de la communication. Il introduit la notion de bruit comme perturbation du signal.',
-    module: 'Theories de la communication',
-  },
-  {
-    question: 'Quelle fonction du langage selon Jakobson vise a maintenir le contact ?',
-    options: ['Fonction conative', 'Fonction phatique', 'Fonction referentielle', 'Fonction metalinguistique'],
-    correctIndex: 1,
-    explanation: 'La fonction phatique (liee au canal) sert a etablir, maintenir ou interrompre le contact. Ex: "Allo ?", "Tu m\'ecoutes ?"',
-    module: 'Theories de la communication',
-  },
-  {
-    question: 'Dans l\'analyse SWOT, le "O" represente :',
-    options: ['Les objectifs', 'Les opportunites', 'Les obligations', 'L\'organisation'],
-    correctIndex: 1,
-    explanation: 'SWOT = Strengths (Forces), Weaknesses (Faiblesses), Opportunities (Opportunites), Threats (Menaces). C\'est un outil d\'analyse strategique.',
-    module: 'Strategie de communication',
-  },
-  {
-    question: 'Quel est l\'objectif cognitif en communication ?',
-    options: ['Faire agir', 'Faire aimer', 'Faire connaitre', 'Faire acheter'],
-    correctIndex: 2,
-    explanation: 'L\'objectif cognitif vise a faire connaitre (notoriete). L\'affectif vise a faire aimer (image) et le conatif a faire agir (comportement).',
-    module: 'Objectifs de communication',
-  },
-  {
-    question: 'Qui a dit "On ne peut pas ne pas communiquer" ?',
-    options: ['Jakobson', 'Shannon', 'Watzlawick', 'Barthes'],
-    correctIndex: 2,
-    explanation: 'C\'est un axiome fondamental de l\'Ecole de Palo Alto, enonce par Paul Watzlawick. Meme le silence est une forme de communication.',
-    module: 'Theories de la communication',
-  },
-  {
-    question: 'Roland Barthes distingue dans l\'image publicitaire :',
-    options: ['2 niveaux de lecture', '3 niveaux de lecture', '4 niveaux de lecture', '5 niveaux de lecture'],
-    correctIndex: 1,
-    explanation: 'Barthes identifie 3 messages : le message linguistique, le message iconique code (denote) et le message iconique non-code (connote).',
-    module: 'Semiotique',
-  },
-  {
-    question: 'Qu\'est-ce que la notion de "coeur de cible" ?',
-    options: ['L\'ensemble des consommateurs', 'Le segment le plus large', 'Le segment prioritaire a atteindre', 'Les prescripteurs'],
-    correctIndex: 2,
-    explanation: 'Le coeur de cible est le segment de population prioritaire, sur lequel l\'effort de communication sera le plus concentre.',
-    module: 'Strategie de communication',
-  },
-  {
-    question: 'Le brief creatif est :',
-    options: [
-      'Un document comptable',
-      'Un document de synthese pour l\'equipe creative',
-      'Un rapport d\'activite',
-      'Un contrat avec le client',
-    ],
-    correctIndex: 1,
-    explanation: 'Le brief creatif resume la problematique, les objectifs, la cible, le message cle, le ton et les contraintes pour guider la creation.',
-    module: 'Production',
-  },
-  {
-    question: 'L\'agenda-setting designe :',
-    options: [
-      'L\'agenda du journaliste',
-      'La capacite des medias a influencer ce a quoi le public pense',
-      'Le planning des publications',
-      'La gestion du temps mediatique',
-    ],
-    correctIndex: 1,
-    explanation: 'La theorie de l\'agenda-setting (McCombs & Shaw, 1972) montre que les medias determinent les sujets auxquels le public prete attention.',
-    module: 'Sociologie des medias',
-  },
-  {
-    question: 'Quel moyen de persuasion d\'Aristote correspond a la credibilite de l\'orateur ?',
-    options: ['Pathos', 'Logos', 'Ethos', 'Kairos'],
-    correctIndex: 2,
-    explanation: 'L\'ethos est la credibilite/autorite de l\'orateur. Le pathos concerne l\'emotion, le logos la logique du discours.',
-    module: 'Argumentation',
-  },
-];
+// Build question bank from course-data.ts (all real quiz questions)
+const questionBank: Question[] = getAllQuizQuestions().map(q => ({
+  question: q.question,
+  options: q.options,
+  correctIndex: q.correctIndex,
+  explanation: q.explanation,
+  module: q.tags?.[0] || 'general',
+}));
 
 type Phase = 'config' | 'quiz' | 'results';
 
