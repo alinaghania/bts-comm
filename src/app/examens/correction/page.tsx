@@ -169,9 +169,9 @@ export default function CorrectionPage() {
         >
           <ArrowLeft className="w-4 h-4" /> Retour aux examens
         </Link>
-        <h1 className="text-2xl md:text-3xl font-bold">Correction de copie par Opus</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">Correction de copie par Coline</h1>
         <p className="text-text-muted mt-1">
-          Prends ta copie en photo et Opus la corrige comme un vrai jury BTS
+          Prends ta copie en photo et Coline la corrige comme un vrai jury BTS
         </p>
       </motion.div>
 
@@ -265,12 +265,12 @@ export default function CorrectionPage() {
               {loading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  Opus analyse ta copie...
+                  Coline analyse ta copie...
                 </>
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  Envoyer a Opus pour correction
+                  Envoyer a Coline pour correction
                 </>
               )}
             </motion.button>
@@ -282,7 +282,7 @@ export default function CorrectionPage() {
                 className="text-center space-y-2"
               >
                 <p className="text-xs text-text-muted">
-                  Opus lit attentivement chaque page de ta copie...
+                  Coline lit attentivement chaque page de ta copie...
                 </p>
                 <p className="text-xs text-text-muted">
                   Cela peut prendre 30 a 60 secondes.
@@ -540,7 +540,7 @@ export default function CorrectionPage() {
               className="bg-bg-card border border-white/5 rounded-2xl p-6"
             >
               <h2 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-primary" /> Commentaire general d&apos;Opus
+                <MessageSquare className="w-4 h-4 text-primary" /> Commentaire general de Coline
               </h2>
               <p className="text-sm leading-relaxed text-text/80">{result.overallFeedback}</p>
             </motion.div>
@@ -575,7 +575,7 @@ export default function CorrectionPage() {
                   >
                     <div className="px-6 pb-6 space-y-3">
                       <p className="text-xs text-text-muted mb-2">
-                        Opus a identifie ces exercices pour travailler tes lacunes :
+                        Coline a identifie ces exercices pour travailler tes lacunes :
                       </p>
                       {result.suggestedExercises.map((ex, i) => {
                         const diff = getDifficultyLabel(ex.difficulty);

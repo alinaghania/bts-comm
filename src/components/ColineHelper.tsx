@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Lightbulb, X, Bot, Loader2 } from 'lucide-react';
 
-interface OpusHelperProps {
+interface ColineHelperProps {
   context: string;
   type?: 'question' | 'concept' | 'exam_tip';
   compact?: boolean;
 }
 
-export default function OpusHelper({ context, type = 'concept', compact = false }: OpusHelperProps) {
+export default function ColineHelper({ context, type = 'concept', compact = false }: ColineHelperProps) {
   const [open, setOpen] = useState(false);
   const [explanation, setExplanation] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,9 +20,9 @@ export default function OpusHelper({ context, type = 'concept', compact = false 
     setLoading(true);
     try {
       const systemPrompts: Record<string, string> = {
-        question: "Tu es Opus, un tuteur bienveillant. L'etudiant n'a pas compris une question de quiz. Explique pourquoi la bonne reponse est correcte et pourquoi les autres sont fausses. Utilise des ANALOGIES simples de la vie quotidienne. Sois concis (max 150 mots). Parle en francais.",
-        concept: "Tu es Opus, un tuteur bienveillant. Explique ce concept de maniere ULTRA SIMPLE avec une analogie de la vie quotidienne. Ajoute un 'Le savais-tu ?' fun a la fin. Max 120 mots. Parle en francais.",
-        exam_tip: "Tu es Opus, un tuteur expert du BTS Communication. Donne un conseil pratique et concret pour cette epreuve. Sois direct et actionnable. Max 100 mots. Parle en francais."
+        question: "Tu es Coline, un tuteur bienveillant. L'etudiant n'a pas compris une question de quiz. Explique pourquoi la bonne reponse est correcte et pourquoi les autres sont fausses. Utilise des ANALOGIES simples de la vie quotidienne. Sois concis (max 150 mots). Parle en francais.",
+        concept: "Tu es Coline, un tuteur bienveillant. Explique ce concept de maniere ULTRA SIMPLE avec une analogie de la vie quotidienne. Ajoute un 'Le savais-tu ?' fun a la fin. Max 120 mots. Parle en francais.",
+        exam_tip: "Tu es Coline, un tuteur expert du BTS Communication. Donne un conseil pratique et concret pour cette epreuve. Sois direct et actionnable. Max 100 mots. Parle en francais."
       };
 
       const res = await fetch('/api/tutor', {
@@ -70,10 +70,10 @@ export default function OpusHelper({ context, type = 'concept', compact = false 
             ? 'p-1.5 rounded-lg hover:bg-primary/10'
             : 'px-3 py-1.5 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary text-xs font-medium'
         }`}
-        title="Demander a Opus"
+        title="Demander a Coline"
       >
         <Lightbulb className={compact ? 'w-4 h-4 text-primary' : 'w-3.5 h-3.5'} />
-        {!compact && <span>Opus explique</span>}
+        {!compact && <span>Coline explique</span>}
       </button>
 
       <AnimatePresence>
@@ -98,8 +98,8 @@ export default function OpusHelper({ context, type = 'concept', compact = false 
                     <Bot className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold">Opus</p>
-                    <p className="text-xs text-text-muted">Ton tuteur IA</p>
+                    <p className="text-sm font-bold">Coline</p>
+                    <p className="text-xs text-text-muted">Je suis la pour t'accompagner</p>
                   </div>
                 </div>
                 <button onClick={() => setOpen(false)} className="p-1 rounded-lg hover:bg-bg-hover">
@@ -111,7 +111,7 @@ export default function OpusHelper({ context, type = 'concept', compact = false 
                 {loading && !explanation ? (
                   <div className="flex items-center gap-2 text-text-muted">
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Opus reflechit...</span>
+                    <span>Coline reflechit...</span>
                   </div>
                 ) : (
                   <div className="whitespace-pre-wrap">{explanation}</div>

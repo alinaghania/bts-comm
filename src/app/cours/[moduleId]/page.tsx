@@ -4,7 +4,7 @@ import { use, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Check, Circle, BookOpen, Brain, Bot, ChevronDown, ChevronUp, Lightbulb, CircleCheck } from 'lucide-react';
 import Link from 'next/link';
-import OpusHelper from '@/components/OpusHelper';
+import ColineHelper from '@/components/ColineHelper';
 import DidYouKnow from '@/components/DidYouKnow';
 
 const chapterFacts: Record<string, string> = {
@@ -326,7 +326,7 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                                 <li key={k} className="text-sm text-text-muted flex items-start gap-2">
                                   <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                                   <span className="flex-1">{point}</span>
-                                  <OpusHelper
+                                  <ColineHelper
                                     context={`Concept du BTS Communication, module "${data.title}", chapitre "${chapter.title}" : ${point}. Explique ce point cle de maniere simple avec un exemple concret.`}
                                     type="concept"
                                     compact
@@ -337,9 +337,9 @@ export default function ModulePage({ params }: { params: Promise<{ moduleId: str
                           </div>
                         )}
 
-                        {/* Opus chapter helper */}
+                        {/* Coline chapter helper */}
                         <div className="mt-4">
-                          <OpusHelper
+                          <ColineHelper
                             context={`Je suis en train d'etudier le chapitre "${chapter.title}" du module "${data.title}" (epreuve ${data.exam}) du BTS Communication. Les points cles sont : ${chapter.keyPoints.join(', ')}. Explique-moi ce chapitre de maniere simple avec des analogies.`}
                             type="concept"
                           />

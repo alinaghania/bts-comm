@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react';
 import { motion } from 'motion/react';
 import { Filter, Box, BarChart3, PartyPopper } from 'lucide-react';
 import FlashCard from '@/components/FlashCard';
-import OpusHelper from '@/components/OpusHelper';
+import ColineHelper from '@/components/ColineHelper';
 import { useFlashcards } from '@/lib/hooks';
 import PageGuide from '@/components/PageGuide';
 
@@ -152,7 +152,7 @@ export default function FlashcardsPage() {
             onRate={handleRate}
           />
           <div className="flex justify-center">
-            <OpusHelper
+            <ColineHelper
               context={`Concept a expliquer pour un etudiant en BTS Communication :\nQuestion : ${currentCard.question}\nReponse : ${currentCard.answer}\nExplique ce concept avec une analogie simple et des exemples concrets du monde de la communication.`}
               type="concept"
             />

@@ -1,76 +1,62 @@
 import { type NextRequest } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
 
-const client = new Anthropic({
-  baseURL: process.env.AZURE_ANTHROPIC_ENDPOINT,
-  apiKey: process.env.AZURE_ANTHROPIC_API_KEY,
-});
+const ENDPOINT = process.env.AZURE_ANTHROPIC_ENDPOINT || "";
+const API_KEY = process.env.AZURE_ANTHROPIC_API_KEY || "";
+const MODEL = process.env.AZURE_ANTHROPIC_MODEL || "claude-opus-4-6";
 
 function getUserId(request: NextRequest): string | null {
   return request.headers.get("x-user-id");
 }
 
-// System prompts adaptés au contexte
 const SYSTEM_PROMPTS: Record<string, string> = {
-  quiz_explanation: `Tu es un tuteur expert en BTS Communication. L'étudiant vient de répondre à une question de quiz.
+  quiz_explanation: `Tu es Coline, tutrice experte en BTS Communication. L'etudiante vient de repondre a une question de quiz.
 
-Ton rôle :
-- Expliquer clairement pourquoi la bonne réponse est correcte
-- Expliquer pourquoi les autres réponses sont incorrectes
-- Donner un moyen mnémotechnique ou un exemple concret pour retenir
-- Rester concis mais pédagogique
+Ton role :
+- Expliquer clairement pourquoi la bonne reponse est correcte
+- Expliquer pourquoi les autres reponses sont incorrectes
+- Donner un moyen mnemotechnique ou un exemple concret pour retenir
+- Rester concise mais pedagogique
 - Utiliser un ton encourageant
 
-Réponds en français. Sois précis et cite les notions du programme BTS Communication quand c'est pertinent.`,
+Reponds en francais. Sois precise et cite les notions du programme BTS Communication.`,
 
-  course_help: `Tu es un tuteur expert en BTS Communication. L'étudiant a besoin d'aide pour comprendre un concept du programme.
+  course_help: `Tu es Coline, tutrice experte en BTS Communication. L'etudiante a besoin d'aide pour comprendre un concept du programme.
 
-Ton rôle :
-- Expliquer le concept de manière claire et structurée
+Ton role :
+- Expliquer le concept de maniere claire et structuree
 - Utiliser des exemples concrets du monde de la communication
 - Faire des liens avec d'autres notions du programme
 - Proposer des exercices pratiques si pertinent
-- Adapter ton explication au niveau BTS
 
-Matières du BTS Communication :
-- E1 : Cultures de la Communication (culture générale, expression)
-- E4 : Strategie de communication (négociation, conseil, achat d'espace)
-- E5 : Portfolio oral (projet de communication, production)
-- E6 : Veille Opérationnelle (recherche, analyse, veille)
+Matieres : E1 (Cultures de la Communication), E4 (Strategie de communication), E5 (Portfolio oral).
 
-Réponds en français. Sois pédagogique et structuré.`,
+Reponds en francais. Sois pedagogique et structuree.`,
 
-  exam_advice: `Tu es un tuteur expert en BTS Communication spécialisé dans la préparation aux examens.
+  exam_advice: `Tu es Coline, tutrice experte en BTS Communication specialisee dans la preparation aux examens.
 
-Ton rôle :
-- Donner des conseils stratégiques pour réussir les épreuves
-- Expliquer la méthodologie attendue par les correcteurs
+Ton role :
+- Donner des conseils strategiques pour reussir les epreuves
+- Expliquer la methodologie attendue par les correcteurs
 - Partager des astuces de gestion du temps
-- Aider à structurer les réponses
-- Donner des exemples de bonnes copies
+- Aider a structurer les reponses
 
-Épreuves du BTS Communication :
-- E1 : Cultures de la Communication (coeff. 3, écrit 4h)
-- E4 : Strategie de communication (coeff. 4, oral)
-- E5 : Portfolio oral (coeff. 4, dossier + oral)
-- E6 : Veille Opérationnelle (coeff. 3, écrit 3h)
+Epreuves : E1 (coeff. 3, ecrit 4h), E4 (coeff. 5, ecrit 4h), E5 (coeff. 4, oral 40min).
 
-Réponds en français. Sois concret et actionnable.`,
+Reponds en francais. Sois concrete et actionnable.`,
 
-  weakness_analysis: `Tu es un tuteur expert en BTS Communication. Tu analyses les points faibles de l'étudiant à partir de ses statistiques et résultats.
+  weakness_analysis: `Tu es Coline, tutrice experte en BTS Communication. Tu analyses les points faibles de l'etudiante a partir de ses statistiques et resultats.
 
-Ton rôle :
+Ton role :
 - Identifier les lacunes principales
-- Proposer un plan de révision ciblé
-- Prioriser les sujets à travailler en premier
-- Donner des ressources et méthodes adaptées
-- Encourager l'étudiant tout en étant honnête
+- Proposer un plan de revision cible
+- Prioriser les sujets a travailler en premier
+- Encourager tout en etant honnete sur les progres necessaires
 
-Réponds en français. Sois analytique mais bienveillant.`,
+Reponds en francais. Sois analytique mais bienveillante.`,
 
-  default: `Tu es un tuteur expert du BTS Communication. Tu aides l'étudiant à comprendre les concepts, tu expliques les réponses aux questions, tu donnes des conseils personnalisés. Tu es bienveillant mais exigeant. Tu parles en français. Tu identifies les points faibles et tu proposes des exercices ciblés.
+  default: `Tu es Coline, tutrice experte du BTS Communication. Tu accompagnes l'etudiante pour comprendre les concepts, tu expliques les reponses aux questions, tu donnes des conseils personnalises. Tu es bienveillante mais exigeante. Tu parles en francais.
 
-Matières : E1 (Cultures de la Communication), E4 (Strategie de communication), E5 (Portfolio oral), E6 (Veille Opérationnelle).`,
+Matieres : E1 (Cultures de la Communication), E4 (Strategie de communication), E5 (Portfolio oral).`,
 };
 
 export async function POST(request: NextRequest) {
@@ -85,7 +71,7 @@ export async function POST(request: NextRequest) {
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return Response.json(
-        { error: "messages est requis et doit être un tableau non vide" },
+        { error: "messages est requis et doit etre un tableau non vide" },
         { status: 400 }
       );
     }
@@ -93,36 +79,75 @@ export async function POST(request: NextRequest) {
     const systemPrompt =
       systemOverride || SYSTEM_PROMPTS[context as string] || SYSTEM_PROMPTS.default;
 
-    // Streaming de la réponse avec le SDK Anthropic
-    const stream = client.messages.stream({
-      model: "claude-opus-4-6",
-      max_tokens: 2048,
-      system: systemPrompt,
-      messages: messages.map(
-        (m: { role: string; content: string }) => ({
-          role: m.role as "user" | "assistant",
-          content: m.content,
-        })
-      ),
+    const url = `${ENDPOINT}v1/messages`;
+
+    const azureRes = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": API_KEY,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 2048,
+        stream: true,
+        system: systemPrompt,
+        messages: messages.map(
+          (m: { role: string; content: string }) => ({
+            role: m.role as "user" | "assistant",
+            content: m.content,
+          })
+        ),
+      }),
     });
 
-    // Convertir le stream Anthropic en ReadableStream pour la Response
+    if (!azureRes.ok) {
+      const errorText = await azureRes.text();
+      console.error("Azure Anthropic error:", azureRes.status, errorText);
+      return Response.json(
+        { error: `Erreur API Azure: ${azureRes.status}` },
+        { status: 502 }
+      );
+    }
+
+    // Parse SSE stream from Azure and forward as plain text
     const encoder = new TextEncoder();
     const readableStream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const event of stream) {
-            if (
-              event.type === "content_block_delta" &&
-              event.delta.type === "text_delta"
-            ) {
-              const chunk = encoder.encode(event.delta.text);
-              controller.enqueue(chunk);
+          const reader = azureRes.body?.getReader();
+          if (!reader) { controller.close(); return; }
+
+          const decoder = new TextDecoder();
+          let buffer = "";
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split("\n");
+            buffer = lines.pop() || "";
+
+            for (const line of lines) {
+              if (line.startsWith("data: ")) {
+                const data = line.slice(6).trim();
+                if (data === "[DONE]") continue;
+                try {
+                  const parsed = JSON.parse(data);
+                  if (parsed.type === "content_block_delta" && parsed.delta?.text) {
+                    controller.enqueue(encoder.encode(parsed.delta.text));
+                  }
+                } catch {
+                  // Skip unparseable lines
+                }
+              }
             }
           }
           controller.close();
         } catch (error) {
-          console.error("Stream error:", error);
+          console.error("Stream processing error:", error);
           controller.error(error);
         }
       },
@@ -131,7 +156,6 @@ export async function POST(request: NextRequest) {
     return new Response(readableStream, {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
-        "Transfer-Encoding": "chunked",
         "Cache-Control": "no-cache",
       },
     });

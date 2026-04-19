@@ -6,7 +6,7 @@ import { Settings, Shuffle, Trophy, Clock, RotateCcw, ChevronRight, Check, X, Cl
 import Link from 'next/link';
 import QuizQuestion from '@/components/QuizQuestion';
 import CountdownTimer from '@/components/CountdownTimer';
-import OpusHelper from '@/components/OpusHelper';
+import ColineHelper from '@/components/ColineHelper';
 import DidYouKnow from '@/components/DidYouKnow';
 import PageGuide from '@/components/PageGuide';
 
@@ -256,14 +256,14 @@ export default function QuizPage() {
               />
             </div>
 
-            {/* Opus Helper (appears when answered) */}
+            {/* Coline Helper (appears when answered) */}
             {answers.length > currentQ && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="flex items-center gap-3"
               >
-                <OpusHelper
+                <ColineHelper
                   context={`Question: ${questions[currentQ].question}\nOptions: ${questions[currentQ].options.map((o, i) => `${String.fromCharCode(65 + i)}) ${o}`).join(', ')}\nBonne reponse: ${questions[currentQ].options[questions[currentQ].correctIndex]}\nExplication du cours: ${questions[currentQ].explanation}\nL'etudiant a ${answers[currentQ] ? 'bien repondu' : 'mal repondu'}.`}
                   type="question"
                 />
@@ -349,7 +349,7 @@ export default function QuizPage() {
                         Reponse : {q.options[q.correctIndex]}
                       </p>
                     </div>
-                    <OpusHelper
+                    <ColineHelper
                       context={`Question: ${q.question}\nOptions: ${q.options.map((o, j) => `${String.fromCharCode(65 + j)}) ${o}`).join(', ')}\nBonne reponse: ${q.options[q.correctIndex]}\nExplication: ${q.explanation}`}
                       type="question"
                       compact

@@ -1,10 +1,8 @@
 import { type NextRequest } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
 
-const client = new Anthropic({
-  baseURL: process.env.AZURE_ANTHROPIC_ENDPOINT,
-  apiKey: process.env.AZURE_ANTHROPIC_API_KEY,
-});
+const ENDPOINT = process.env.AZURE_ANTHROPIC_ENDPOINT || "";
+const API_KEY = process.env.AZURE_ANTHROPIC_API_KEY || "";
+const MODEL = process.env.AZURE_ANTHROPIC_MODEL || "claude-opus-4-6";
 
 const GRILLES: Record<string, { criteres: { critere: string; maxPoints: number }[]; description: string }> = {
   E1: {
@@ -106,7 +104,7 @@ export async function POST(request: NextRequest) {
     const systemPrompt = buildSystemPrompt(examType);
 
     // Build content array with all images + text prompt
-    const content: Anthropic.Messages.ContentBlockParam[] = [];
+    const content: Array<{ type: string; source?: { type: string; media_type: string; data: string }; text?: string }> = [];
 
     for (let i = 0; i < images.length; i++) {
       content.push({
@@ -124,38 +122,43 @@ export async function POST(request: NextRequest) {
       text: `Voici ma copie d'examen (${images.length} page${images.length > 1 ? "s" : ""}). Corrige-la selon la grille officielle de l'epreuve ${examType}. Reponds uniquement en JSON valide.`,
     });
 
-    const response = await client.messages.create({
-      model: "claude-opus-4-6",
-      max_tokens: 4096,
-      system: systemPrompt,
-      messages: [
-        {
-          role: "user",
-          content,
-        },
-      ],
+    const url = `${ENDPOINT}v1/messages`;
+    const azureRes = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": API_KEY,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 4096,
+        system: systemPrompt,
+        messages: [{ role: "user", content }],
+      }),
     });
 
-    // Extract text content from response
-    const textBlock = response.content.find((block) => block.type === "text");
-    if (!textBlock || textBlock.type !== "text") {
-      return Response.json(
-        { error: "Reponse invalide du modele" },
-        { status: 500 }
-      );
+    if (!azureRes.ok) {
+      const errorText = await azureRes.text();
+      console.error("Azure correction error:", azureRes.status, errorText);
+      return Response.json({ error: `Erreur API: ${azureRes.status}` }, { status: 502 });
+    }
+
+    const response = await azureRes.json();
+    const textBlock = response.content?.find((block: { type: string }) => block.type === "text");
+    if (!textBlock) {
+      return Response.json({ error: "Reponse invalide du modele" }, { status: 500 });
     }
 
     // Parse JSON from response
     let correctionData;
     try {
-      // Try to extract JSON even if wrapped in markdown code blocks
       let jsonText = textBlock.text.trim();
       if (jsonText.startsWith("```")) {
         jsonText = jsonText.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
       }
       correctionData = JSON.parse(jsonText);
     } catch {
-      // If JSON parsing fails, return raw text with a structured wrapper
       correctionData = {
         note: 0,
         grille: [],

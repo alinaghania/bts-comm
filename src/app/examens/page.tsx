@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { FileText, Clock, Award, ChevronRight, ArrowLeft, AlertTriangle, Bot, Lightbulb, CheckCircle, Timer, ClipboardList, Loader2, Camera } from 'lucide-react';
 import Link from 'next/link';
 import CountdownTimer from '@/components/CountdownTimer';
-import OpusHelper from '@/components/OpusHelper';
+import ColineHelper from '@/components/ColineHelper';
 import PageGuide from '@/components/PageGuide';
 
 interface ExamConfig {
@@ -51,7 +51,7 @@ interface ExamHistory {
   duration: string;
 }
 
-const opusTipsE1 = [
+const colineTipsE1 = [
   "Pense a structurer ta dissertation en 2 ou 3 parties equilibrees.",
   "N'oublie pas de citer au moins 2 auteurs/theories dans ta copie (Jakobson, Barthes, Watzlawick...).",
   "Pour la synthese, confronte les documents entre eux plutot que de les resumer un par un.",
@@ -59,7 +59,7 @@ const opusTipsE1 = [
   "Relis ta copie 15 minutes avant la fin pour corriger les fautes d'orthographe.",
 ];
 
-const opusTipsE4 = [
+const colineTipsE4 = [
   "Structure ta recommandation : diagnostic, objectifs, cible, strategie, moyens, budget.",
   "N'oublie pas de citer des exemples concrets de campagnes existantes pour appuyer ton propos.",
   "Pense a chiffrer ton budget : les correcteurs verifient la coherence financiere.",
@@ -67,7 +67,7 @@ const opusTipsE4 = [
   "Montre que tu maitrises le vocabulaire technique : GRP, CPM, taux de couverture...",
 ];
 
-const opusTipsE5 = [
+const colineTipsE5 = [
   "Prepare 3 fiches descriptives d'actions de communication que tu as menees.",
   "Ton tableau synoptique doit montrer la coherence entre tes actions et la strategie globale.",
   "Lors de l'oral, regarde le jury, parle fort et structure ta presentation avec une intro/conclusion.",
@@ -101,7 +101,7 @@ export default function ExamensPage() {
   const [examStarted, setExamStarted] = useState(false);
   const [examHistory, setExamHistory] = useState<ExamHistory[]>([]);
   const [historyLoading, setHistoryLoading] = useState(true);
-  const [showOpusCoach, setShowOpusCoach] = useState(false);
+  const [showColineCoach, setShowOpusCoach] = useState(false);
   const [currentTip, setCurrentTip] = useState(0);
   const [e5CheckState, setE5CheckState] = useState<Record<string, boolean>>({});
   const [e5OralTimer, setE5OralTimer] = useState(false);
@@ -147,10 +147,10 @@ export default function ExamensPage() {
   };
 
   const getTips = useCallback(() => {
-    if (!activeExam) return opusTipsE1;
-    if (activeExam.id === 'E4') return opusTipsE4;
-    if (activeExam.id === 'E5') return opusTipsE5;
-    return opusTipsE1;
+    if (!activeExam) return colineTipsE1;
+    if (activeExam.id === 'E4') return colineTipsE4;
+    if (activeExam.id === 'E5') return colineTipsE5;
+    return colineTipsE1;
   }, [activeExam]);
 
   const nextTip = () => {
@@ -255,7 +255,7 @@ export default function ExamensPage() {
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold">Faire corriger ma copie</h3>
                   <p className="text-sm text-text-muted mt-0.5">
-                    Prends ta copie en photo et Opus la corrige comme un vrai jury BTS
+                    Prends ta copie en photo et Coline la corrige comme un vrai jury BTS
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-text-muted flex-shrink-0" />
@@ -368,10 +368,10 @@ export default function ExamensPage() {
               {/* Conseils d'Opus */}
               <div className="mb-6">
                 <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                  <Bot className="w-4 h-4 text-secondary" /> Conseils d&apos;Opus pour l&apos;oral
+                  <Bot className="w-4 h-4 text-secondary" /> Conseils de Coline pour l&apos;oral
                 </h3>
                 <div className="space-y-2">
-                  {opusTipsE5.map((tip, i) => (
+                  {colineTipsE5.map((tip, i) => (
                     <div key={i} className="flex gap-2 p-3 rounded-lg bg-secondary/5 border border-secondary/10">
                       <Lightbulb className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-text/80">{tip}</p>
@@ -379,7 +379,7 @@ export default function ExamensPage() {
                   ))}
                 </div>
                 <div className="mt-3">
-                  <OpusHelper
+                  <ColineHelper
                     context="Je prepare mon oral E5 du BTS Communication. Donne-moi des conseils detailles pour reussir ma presentation du portfolio : comment structurer ma presentation de 20 minutes, comment presenter mes 3 fiches descriptives de maniere captivante, et comment anticiper les questions du jury."
                     type="exam_tip"
                   />
@@ -541,7 +541,7 @@ export default function ExamensPage() {
                   </motion.button>
                 </div>
 
-                {/* Opus Exam Coach panel (desktop) */}
+                {/* Coline Exam Coach panel (desktop) */}
                 <div className="hidden lg:block w-72 flex-shrink-0">
                   <div className="sticky top-8 space-y-4">
                     <div className="bg-bg-card border border-white/5 rounded-2xl p-4">
@@ -550,7 +550,7 @@ export default function ExamensPage() {
                           <Bot className="w-4 h-4 text-white" />
                         </div>
                         <div>
-                          <p className="text-sm font-bold">Opus Coach</p>
+                          <p className="text-sm font-bold">Coline Coach</p>
                           <p className="text-xs text-text-muted">Conseils d&apos;examen</p>
                         </div>
                       </div>
@@ -570,7 +570,7 @@ export default function ExamensPage() {
                       </button>
                     </div>
 
-                    <OpusHelper
+                    <ColineHelper
                       context={`Je suis en train de passer l'epreuve ${activeExam.id} (${activeExam.name}) du BTS Communication. Donne-moi un conseil strategique precis et actionnable pour cette epreuve specifique. Format de l'epreuve : ${activeExam.format}. Coefficient : ${activeExam.coefficient}.`}
                       type="exam_tip"
                     />
@@ -579,27 +579,27 @@ export default function ExamensPage() {
               </div>
             )}
 
-            {/* Mobile Opus Coach button */}
+            {/* Mobile Coline Coach button */}
             {examStarted && (
               <div className="lg:hidden fixed bottom-20 right-4 z-40">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={() => setShowOpusCoach(!showOpusCoach)}
+                  onClick={() => setShowOpusCoach(!showColineCoach)}
                   className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg"
                 >
                   <Bot className="w-6 h-6 text-white" />
                 </motion.button>
 
                 <AnimatePresence>
-                  {showOpusCoach && (
+                  {showColineCoach && (
                     <motion.div
                       initial={{ opacity: 0, y: 10, scale: 0.9 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.9 }}
                       className="absolute bottom-16 right-0 w-72 bg-bg-card border border-white/10 rounded-2xl p-4 shadow-2xl"
                     >
-                      <p className="text-sm font-bold mb-2">Conseil d&apos;Opus</p>
+                      <p className="text-sm font-bold mb-2">Conseil de Coline</p>
                       <div className="bg-bg-hover/50 rounded-xl p-3 mb-3">
                         <p className="text-xs leading-relaxed text-text/80">{getTips()[currentTip]}</p>
                       </div>
