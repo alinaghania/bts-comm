@@ -489,6 +489,31 @@ export default function StatsPage() {
         </motion.div>
       )}
 
+      {/* Reset button */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="pt-4 border-t border-white/5"
+      >
+        <button
+          onClick={async () => {
+            if (!confirm('Reinitialiser ton profil ? Toutes tes donnees seront supprimees.')) return;
+            const uid = localStorage.getItem('bts-user-id');
+            if (!uid) return;
+            await fetch('/api/progress/reset', {
+              method: 'POST',
+              headers: { 'x-user-id': uid },
+            });
+            localStorage.removeItem('bts-onboarding-completed');
+            window.location.reload();
+          }}
+          className="text-xs text-text-muted hover:text-danger transition-colors"
+        >
+          Reinitialiser mon profil
+        </button>
+      </motion.div>
+
       <PageGuide page="stats" />
     </div>
   );
