@@ -488,6 +488,8 @@ export default function StatsPage() {
           </div>
         </motion.div>
       )}
+
+      <PageGuide page="stats" />
     </div>
   );
 }

@@ -366,6 +366,8 @@ export default function CustomFlashcardsPage() {
           </button>
         </motion.div>
       )}
+
+      <PageGuide page="flashcards-custom" />
     </div>
   );
 }

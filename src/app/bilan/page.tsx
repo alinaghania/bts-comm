@@ -347,6 +347,8 @@ Sois concis (max 200 mots), encourageant mais honnete. Ne mets pas de emojis.`;
           <ArrowRight className="w-4 h-4" />
         </Link>
       </motion.div>
+
+      <PageGuide page="bilan" />
     </div>
   );
 }

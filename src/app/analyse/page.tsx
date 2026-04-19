@@ -692,6 +692,8 @@ Sois direct, bienveillant mais honnete. Utilise des exemples concrets.`;
           )}
         </motion.div>
       </div>
+
+      <PageGuide page="analyse" />
     </div>
   );
 }

@@ -218,6 +218,8 @@ Qu'est-ce que tu veux travailler aujourd'hui ?`,
           </motion.button>
         </form>
       </div>
+
+      <PageGuide page="tuteur" />
     </div>
   );
 }

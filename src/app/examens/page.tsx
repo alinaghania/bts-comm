@@ -617,6 +617,8 @@ export default function ExamensPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <PageGuide page="examens" />
     </div>
   );
 }

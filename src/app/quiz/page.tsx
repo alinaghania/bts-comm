@@ -379,6 +379,8 @@ export default function QuizPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <PageGuide page="quiz" />
     </div>
   );
 }
