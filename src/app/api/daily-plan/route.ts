@@ -168,7 +168,7 @@ Reponds en JSON strict (pas de markdown, pas de backticks) :
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "api-key": API_KEY,
+        "Authorization": `Bearer ${API_KEY}`,
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({

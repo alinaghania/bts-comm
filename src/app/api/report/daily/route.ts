@@ -183,7 +183,7 @@ Fais un bilan PRESCRIPTIF (pas descriptif). Reponds en JSON strict :
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "api-key": API_KEY,
+            "Authorization": `Bearer ${API_KEY}`,
             "anthropic-version": "2023-06-01",
           },
           body: JSON.stringify({
