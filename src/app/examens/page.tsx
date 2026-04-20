@@ -7,6 +7,7 @@ import Link from 'next/link';
 import CountdownTimer from '@/components/CountdownTimer';
 import ColineHelper from '@/components/ColineHelper';
 import PageGuide from '@/components/PageGuide';
+import { getAnnalesByExam, type Annale } from '@/lib/annales-data';
 
 interface ExamConfig {
   id: string;
@@ -91,6 +92,92 @@ const e6GrilleEvaluation = [
   { critere: 'Situation B - Approfondissement fiches descriptives (20 min)', points: 5 },
   { critere: 'Qualite de la presentation orale et argumentation', points: 5 },
 ];
+
+function AnnaleSelector({ examId }: { examId: 'E1' | 'E5' }) {
+  const exam = examId.toLowerCase() as 'e1' | 'e5';
+  const annales = getAnnalesByExam(exam);
+  const [selected, setSelected] = useState<Annale | null>(null);
+
+  if (!selected) {
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-text-muted">Choisis une annale reelle pour t&apos;entrainer :</p>
+        <div className="space-y-2">
+          {annales.map((a) => (
+            <button
+              key={a.id}
+              onClick={() => setSelected(a)}
+              className="w-full text-left p-4 rounded-xl bg-bg-hover/50 border border-white/5 hover:border-primary/30 transition-all"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium">{a.title}</p>
+                  <p className="text-xs text-text-muted mt-1">{a.theme} — Session {a.year}</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-text-muted" />
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="font-semibold">{selected.title}</h3>
+          <p className="text-xs text-text-muted">{selected.theme} — Session {selected.year}</p>
+        </div>
+        <button onClick={() => setSelected(null)} className="text-xs text-text-muted hover:text-text">
+          Changer d&apos;annale
+        </button>
+      </div>
+
+      {selected.parts.map((part) => (
+        <div key={part.id} className="border-t border-white/5 pt-4 space-y-3">
+          <p className="text-sm font-medium text-primary">{part.title} ({part.points} points)</p>
+          <p className="text-sm text-text-muted leading-relaxed">{part.description}</p>
+          {part.documents && part.documents.length > 0 && (
+            <div className="text-xs text-text-muted">
+              <p className="font-medium">Documents fournis :</p>
+              <ul className="list-disc list-inside mt-1 space-y-0.5">
+                {part.documents.map((doc, i) => <li key={i}>{doc}</li>)}
+              </ul>
+            </div>
+          )}
+          <div className="space-y-2 mt-2">
+            {part.questions.map((q, i) => (
+              <p key={q.id} className="text-sm text-text-muted">
+                <span className="font-medium text-text">Q{i + 1}.</span> {q.question} <span className="text-xs text-primary">({q.points} pts)</span>
+              </p>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {selected.correction && (
+        <details className="border-t border-white/5 pt-4">
+          <summary className="text-sm font-medium text-warning cursor-pointer">Voir les elements de correction</summary>
+          <div className="mt-3 space-y-2 text-sm text-text-muted">
+            {selected.correction.keyPoints?.map((p, i) => (
+              <p key={i}>- {p}</p>
+            ))}
+            {selected.correction.commonMistakes && selected.correction.commonMistakes.length > 0 && (
+              <div className="mt-2">
+                <p className="font-medium text-danger text-xs">Erreurs frequentes :</p>
+                {selected.correction.commonMistakes.map((m, i) => (
+                  <p key={i} className="text-xs">- {m}</p>
+                ))}
+              </div>
+            )}
+          </div>
+        </details>
+      )}
+    </div>
+  );
+}
 
 type Phase = 'select' | 'exam' | 'e6prep';
 
@@ -481,66 +568,24 @@ export default function ExamensPage() {
                     />
                   </div>
 
-                  {/* Exam content area */}
+                  {/* Exam content area — real annales */}
                   <div className="bg-bg-card border border-white/5 rounded-2xl p-8 min-h-[400px]">
                     <h2 className="text-lg font-semibold mb-4">{activeExam.subtitle} - {activeExam.name}</h2>
-                    <div className="bg-bg-hover/50 rounded-xl p-6">
-                      {activeExam.id === 'E1' ? (
-                        <div className="space-y-4">
-                          <h3 className="font-semibold">Sujet E1 : La communication a l&apos;ere du numerique</h3>
-
-                          <div className="border-t border-white/5 pt-4 space-y-3">
-                            <p className="text-sm font-medium text-primary">Partie 1 - Analyse de texte (8 points)</p>
-                            <p className="text-sm text-text-muted leading-relaxed">
-                              A partir du texte suivant (~30 lignes), repondez aux questions de comprehension et reperez les positions de l&apos;auteur.
-                            </p>
-                            <p className="text-sm"><span className="font-medium">Texte :</span> <span className="text-text-muted">Dominique Wolton, &quot;Internet et apres ?&quot;, 1999 (extrait)</span></p>
-                            <p className="text-sm text-text-muted">Q1. Identifiez la these principale de l&apos;auteur.</p>
-                            <p className="text-sm text-text-muted">Q2. Quels arguments utilise-t-il pour soutenir sa position ?</p>
-                            <p className="text-sm text-text-muted">Q3. Mettez en relation ce texte avec les enjeux actuels de la communication.</p>
-                          </div>
-
-                          <div className="border-t border-white/5 pt-4 space-y-3">
-                            <p className="text-sm font-medium text-primary">Partie 2 - Analyse de campagne + Production (12 points)</p>
-                            <p className="text-sm text-text-muted leading-relaxed">
-                              Analysez les procedes de la campagne de communication ci-dessous, puis concevez et redigez un message pour l&apos;annonceur en justifiant vos choix.
-                            </p>
-                            <p className="text-sm"><span className="font-medium">Campagne :</span> <span className="text-text-muted">Campagne Securite Routiere 2025 - &quot;Tous concernes&quot;</span></p>
-                            <p className="text-sm text-text-muted">A. Analysez les procedes rhetoriques, visuels et semiotiques utilises.</p>
-                            <p className="text-sm text-text-muted">B. Concevez un message pour un nouvel annonceur (cible, ton, support) et justifiez vos choix creatifs.</p>
-                          </div>
+                    {activeExam.id === 'E6' ? (
+                      <div className="bg-bg-hover/50 rounded-xl p-6 space-y-4">
+                        <h3 className="font-semibold">Simulation oral E6 - Conception et mise en oeuvre de solutions</h3>
+                        <p className="text-sm text-text-muted">Epreuve orale de 40 minutes comprenant 2 situations.</p>
+                        <div className="border-t border-white/5 pt-4 space-y-2">
+                          <p className="text-sm font-medium">Situation A (10 pts) :</p>
+                          <p className="text-sm text-text-muted">Evaluation continue - Portfolio + tableau synoptique</p>
+                          <p className="text-sm font-medium mt-3">Situation B (10 pts) - Oral 20 min max :</p>
+                          <p className="text-sm text-text-muted">Partie 1 : Presentation du parcours (5 min) + Echange avec jury (15 min)</p>
+                          <p className="text-sm text-text-muted">Partie 2 : Approfondissement a partir des 3 fiches descriptives (20 min)</p>
                         </div>
-                      ) : activeExam.id === 'E5' ? (
-                        <div className="space-y-4">
-                          <h3 className="font-semibold">Cas : Lancement de la marque &quot;NaturComm&quot; (E5 - Strategie)</h3>
-                          <p className="text-sm text-text-muted leading-relaxed">
-                            NaturComm est une nouvelle marque de cosmetiques bio qui souhaite se lancer sur le marche francais.
-                            Vous etes charge(e) de concevoir sa strategie de communication.
-                          </p>
-                          <div className="border-t border-white/5 pt-4 space-y-2">
-                            <p className="text-sm font-medium">Travail demande :</p>
-                            <p className="text-sm text-text-muted">1. Realisez le diagnostic de communication (SWOT)</p>
-                            <p className="text-sm text-text-muted">2. Definissez les objectifs et les cibles</p>
-                            <p className="text-sm text-text-muted">3. Proposez une strategie creative et un plan media</p>
-                            <p className="text-sm text-text-muted">4. Elaborez un budget previsionnel</p>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          <h3 className="font-semibold">Simulation oral E6 - Conception et mise en oeuvre de solutions</h3>
-                          <p className="text-sm text-text-muted leading-relaxed">
-                            Epreuve orale de 40 minutes comprenant 2 situations.
-                          </p>
-                          <div className="border-t border-white/5 pt-4 space-y-2">
-                            <p className="text-sm font-medium">Situation A (10 pts) :</p>
-                            <p className="text-sm text-text-muted">Evaluation continue - Portfolio + tableau synoptique</p>
-                            <p className="text-sm font-medium mt-3">Situation B (10 pts) - Oral 20 min max :</p>
-                            <p className="text-sm text-text-muted">Partie 1 : Presentation du parcours (5 min) + Echange avec jury (15 min)</p>
-                            <p className="text-sm text-text-muted">Partie 2 : Approfondissement a partir des 3 fiches descriptives (20 min)</p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                      </div>
+                    ) : (
+                      <AnnaleSelector examId={activeExam.id as 'E1' | 'E5'} />
+                    )}
                   </div>
 
                   <motion.button
