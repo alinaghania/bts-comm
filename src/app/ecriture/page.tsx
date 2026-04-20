@@ -41,6 +41,102 @@ A l'inverse, des marques comme Patagonia ont fait de la sobriete leur positionne
       lien_comm: 'La strategie de communication oscille entre surenchere et authenticite — la sobriete peut etre plus efficace que l\'exces',
     },
   },
+  {
+    id: 'corpus-3',
+    title: 'L\'alimentation et la communication — A table !',
+    text: `Le repas est bien plus qu'un acte nutritionnel : c'est un fait social total, comme l'a montre la sociologie de l'alimentation. La table est un lieu de partage, de rituel, d'identite culturelle. Roland Barthes, dans ses Mythologies, analysait deja le "steak-frites" comme un signe de la francite.
+
+Aujourd'hui, la communication alimentaire est omnipresente. Les marques rivalisent d'imaginaires : terroir, authenticite, bien-etre, plaisir. Le "food porn" sur Instagram a transforme le repas en spectacle visuel. Les etiquettes "bio", "local", "sans gluten" sont devenues des arguments marketing autant que des garanties sanitaires.
+
+Pourtant, cette profusion communicationnelle masque des paradoxes. D'un cote, les campagnes de sante publique ("Manger Bouger") alertent sur la malbouffe. De l'autre, la publicite alimentaire cible massivement les enfants avec des produits ultratransformes. Annie Ernaux, dans ses recits, montre comment l'alimentation revele les clivages sociaux.`,
+    expected: {
+      these: 'Le repas est un fait social total, un lieu d\'identite culturelle et de partage',
+      nuance: 'La communication alimentaire oscille entre authenticite et marketing (bio, food porn)',
+      opposition: 'Campagnes sante publique vs publicite alimentaire ciblant les enfants',
+      motscles: 'terroir, authenticite, spectacle, paradoxe, clivages sociaux',
+      lien_comm: 'L\'alimentation est un terrain de communication ou s\'affrontent sante publique et interets commerciaux',
+    },
+  },
+  {
+    id: 'corpus-4',
+    title: 'La rue comme espace de communication — La rue',
+    text: `La rue n'est pas un simple lieu de passage : c'est un espace de communication a ciel ouvert. Affiches publicitaires, enseignes lumineuses, street art, tracts, manifestations — la rue est saturee de messages. Guillaume Apollinaire, dans "Zone", decrivait deja les rues de Paris comme un poeme visuel ou se melent panneaux, devantures et passants.
+
+Le street marketing a formalise cette intuition : la rue est un media. Flash mobs, guerilla marketing, installations ephemeres transforment l'espace public en terrain d'expression pour les marques. La campagne "Piano Stairs" de Volkswagen a transforme un escalier de metro en piano geant pour promouvoir le mouvement.
+
+Cependant, cette appropriation commerciale de l'espace public souleve des questions. Georges Perec, dans Tentative d'epuisement d'un lieu parisien, montrait la richesse du quotidien urbain non mediatise. L'affichage sauvage, les publicites intrusives provoquent un sentiment de pollution visuelle. Certaines villes, comme Grenoble, ont choisi de supprimer la publicite de l'espace public.`,
+    expected: {
+      these: 'La rue est un espace de communication sature de messages',
+      nuance: 'Le street marketing exploite la rue comme media creatif',
+      opposition: 'Appropriation commerciale vs droit a un espace public non mediatise (Perec, Grenoble)',
+      motscles: 'espace public, street marketing, pollution visuelle, media, quotidien',
+      lien_comm: 'La rue est un media a part entiere, mais son exploitation commerciale questionne les limites de la communication',
+    },
+  },
+  {
+    id: 'corpus-5',
+    title: 'L\'exces dans la societe de consommation',
+    text: `Rabelais faisait deja de l'exces un moteur litteraire : Gargantua engloutit, accumule, deborde. Aujourd'hui, l'exces est devenu le mode operatoire de la societe de consommation. Surconsommation, fast fashion, obsolescence programmee : le "trop" est systemique.
+
+La communication amplifie cette logique : promotions permanentes (-50%, "Black Friday"), hyperboles publicitaires ("le meilleur", "l'ultime"), saturation mediatique. Montaigne, dans ses Essais, preconisait pourtant la mesure : "la mesure est la juste proportion des choses."
+
+Face a cet exces, des contre-mouvements emergent. La communication responsable (RSE), le minimalisme, la "decroissance" proposent un autre recit. Fitzgerald, dans Gatsby le Magnifique, montrait deja que l'exces de richesse mene a la vacuite. Certaines marques comme Patagonia ou Veja ont fait de la sobriete un argument commercial paradoxal : consommer moins, mais mieux.`,
+    expected: {
+      these: 'L\'exces est le mode operatoire de la societe de consommation, amplifie par la communication',
+      nuance: 'Des contre-mouvements (RSE, minimalisme) proposent un autre modele',
+      opposition: 'Exces / surconsommation vs mesure / sobriete (Montaigne, Patagonia)',
+      motscles: 'surconsommation, hyperbole, saturation, sobriete, RSE, mesure',
+      lien_comm: 'La communication oscille entre amplification de l\'exces et promotion de la sobriete',
+    },
+  },
+  {
+    id: 'corpus-6',
+    title: 'Les reseaux sociaux et l\'identite',
+    text: `Les reseaux sociaux ont transforme la construction identitaire. Chaque profil est une mise en scene de soi : photos selectionnees, bio travaillee, contenus partages. Erving Goffman parlait de "presentation de soi" dans les interactions sociales — les reseaux sociaux ont numerise cette theatralisation.
+
+Cette construction identitaire numerique pose des questions majeures. Les filtres Instagram, les retouches, les "vies parfaites" alimentent une comparaison sociale permanente. La campagne "Reverse Selfie" de Dove (2021) a mis en lumiere l'impact de ces representations sur l'estime de soi des adolescentes.
+
+Pourtant, les reseaux sociaux offrent aussi des espaces d'expression liberateurs. Les communautes en ligne permettent a des individus marginalises de trouver une voix. Le mouvement #MeToo est ne sur Twitter. Guy Debord aurait vu dans les reseaux sociaux l'aboutissement de la "societe du spectacle", mais aussi, peut-etre, un outil de contre-spectacle.`,
+    expected: {
+      these: 'Les reseaux sociaux transforment la construction identitaire en theatralisation numerique de soi',
+      nuance: 'Les reseaux offrent aussi des espaces d\'expression liberateurs (#MeToo)',
+      opposition: 'Mise en scene / comparaison sociale vs liberation de la parole',
+      motscles: 'identite, mise en scene, filtres, comparaison, expression, spectacle',
+      lien_comm: 'Les reseaux sociaux sont un outil de communication identitaire qui peut aliener ou liberer',
+    },
+  },
+  {
+    id: 'corpus-7',
+    title: 'L\'image de la femme dans la publicite',
+    text: `La representation de la femme dans la publicite a longtemps ete un miroir deformant des normes sociales. Femme-objet, mere parfaite, seductrice : les stereotypes feminins ont structure le discours publicitaire pendant des decennies. Jean Baudrillard notait que la publicite vend des signes plus que des produits — et le corps feminin a ete l'un des signes les plus exploites.
+
+Un tournant s'est opere dans les annees 2000. La campagne "Real Beauty" de Dove (2004) a introduit des corps "reels" dans la publicite. Always a lance "#LikeAGirl" pour deconstruire le stereotyppe. Ces campagnes s'inscrivent dans le "femvertising" : l'utilisation du feminisme comme argument marketing.
+
+Cependant, le femvertising suscite des critiques. Peut-on concilier engagement feministe et logique marchande ? Naomi Klein, dans No Logo, rappelle que les marques recuperent les mouvements sociaux pour vendre. Le risque du "purpose washing" — afficher des valeurs sans les incarner — est reel.`,
+    expected: {
+      these: 'La publicite a longtemps exploite des stereotypes feminins comme signes commerciaux',
+      nuance: 'Le femvertising tente de deconstruire ces stereotypes (Dove, Always)',
+      opposition: 'Engagement feministe vs recuperation marchande (purpose washing)',
+      motscles: 'stereotypes, femvertising, corps, signes, purpose washing, engagement',
+      lien_comm: 'La communication evolue entre reproduction des stereotypes et tentative de les deconstruire, avec un risque de recuperation',
+    },
+  },
+  {
+    id: 'corpus-8',
+    title: 'La communication de crise',
+    text: `La communication de crise est l'epreuve de verite pour toute organisation. Quand l'imprevue frappe — scandale, accident, bad buzz — la reaction communicationnelle determine l'avenir de la marque. Patrick Lagadec, specialiste des crises, rappelle que "la crise est un accelerateur de tendances preexistantes."
+
+Deux strategies s'opposent. La strategie du "mea culpa" (reconnaitre, s'excuser, agir) a fait ses preuves : Johnson & Johnson, lors de l'affaire Tylenol (1982), a rappele 31 millions de flacons et reconquis la confiance. A l'inverse, la strategie du deni ou du silence aggrave generalement la situation : BP lors de la maree noire Deepwater Horizon (2010) a vu son image devastee par une communication maladroite.
+
+A l'ere des reseaux sociaux, la crise se propage en temps reel. Un tweet malheureux peut devenir viral en minutes. Watzlawick nous rappelle qu'"on ne peut pas ne pas communiquer" : le silence d'une marque en crise est deja un message, souvent interprete comme un aveu de culpabilite.`,
+    expected: {
+      these: 'La communication de crise determine l\'avenir d\'une organisation face a l\'imprevue',
+      nuance: 'Deux strategies s\'opposent : mea culpa vs deni, avec des resultats tres differents',
+      opposition: 'Transparence et action (Johnson & Johnson) vs deni et maladresse (BP)',
+      motscles: 'crise, mea culpa, deni, reseaux sociaux, silence, temps reel',
+      lien_comm: 'La communication de crise illustre l\'axiome de Watzlawick : ne pas communiquer, c\'est deja communiquer',
+    },
+  },
 ];
 
 const CAMPAGNE_EXERCISES = [
@@ -66,6 +162,78 @@ Figures de rhetorique : anaphore dans le manifeste ("Here's to the crazy ones"),
 References : McLuhan (le medium est le message — le format pub deviant un manifeste), Bourdieu (distinction culturelle — Apple cible les "different thinkers").
 Cible : createurs, artistes, early adopters, CSP+.
 Efficacite : relance d'Apple, construction d'une marque-culture.`,
+  },
+  {
+    id: 'campagne-3',
+    title: 'Burger King — "Whopper Detour" (2018)',
+    brief: 'Burger King propose son Whopper a 1 centime... a condition de le commander via l\'app depuis un McDonald\'s (geolocalisation).',
+    analyse_attendue: `Positionnement : challenger irreverencieux, roi du troll marketing.
+Procedes visuels : application mobile, carte interactive montrant les McDonald's, visuels minimalistes avec le prix "1 cent".
+Procedes redactionnels : provocation directe du concurrent, humour, defi au consommateur. Fonction conative (Jakobson) : "Allez chez McDo... pour commander chez nous."
+Figures de rhetorique : paradoxe (aller chez le concurrent pour acheter), ironie, antithese (McDo vs BK).
+References : Baudrillard (detournement des signes — le lieu McDo devient un point de vente BK), McLuhan (l'app mobile est le message).
+Cible : millennials et Gen Z, digital natives, amateurs d'humour et de defis.
+Efficacite : 1,5 million de telechargements de l'app en 9 jours, campagne la plus primee de 2019 (Cannes Lions Grand Prix).`,
+  },
+  {
+    id: 'campagne-4',
+    title: 'Patagonia — "Don\'t Buy This Jacket" (2011)',
+    brief: 'Le Black Friday 2011, Patagonia publie une pleine page dans le New York Times avec sa veste R2 et le titre "Don\'t Buy This Jacket".',
+    analyse_attendue: `Positionnement : marque responsable, anti-consommation, engagement environnemental sincere.
+Procedes visuels : visuel sobre, photo du produit sur fond blanc, mise en page editoriale (pas publicitaire), rappelle un article de presse.
+Procedes redactionnels : injonction negative paradoxale ("N'achetez pas"), ton informatif et pedagogique (empreinte carbone detaillee du produit). Fonction referentielle (Jakobson) dominante.
+Figures de rhetorique : paradoxe (une marque qui dit de ne pas acheter), litote (dire moins pour signifier plus — "si vous n'en avez pas besoin").
+References : Baudrillard (subversion de la societe de consommation), Klein (critique du branding retournee en argument de marque).
+Cible : consommateurs eco-conscients, CSP+, outdoor enthusiasts, 30-55 ans.
+Efficacite : +30% de ventes l'annee suivante. Le paradoxe a renforce la credibilite et la desirabilite de la marque.`,
+  },
+  {
+    id: 'campagne-5',
+    title: 'Benetton — Campagnes choc (Toscani, 1989-2000)',
+    brief: 'Oliviero Toscani, directeur artistique de Benetton, cree des campagnes montrant des photos-choc (malades du SIDA, condamnes a mort, nouveau-ne) sans lien direct avec le produit.',
+    analyse_attendue: `Positionnement : marque engagee, provocatrice, qui utilise la pub comme tribune sociale.
+Procedes visuels : photos-choc de photojournalisme (pas de mise en scene publicitaire), absence du produit, seul le logo "United Colors of Benetton" apparait. Rupture totale avec les codes publicitaires classiques.
+Procedes redactionnels : absence quasi totale de texte — l'image parle seule. Le logo fait office de signature. Fonction poetique dominante (le message EST la forme).
+Figures de rhetorique : provocation, choc, transgression des codes publicitaires, metonymie (une image = un combat).
+References : Barthes (l'image est polysemique — ces photos generent des interpretations multiples), Debord (detournement du spectacle publicitaire pour montrer le reel).
+Cible : jeunes adultes urbains, sensibles aux causes sociales, 18-35 ans.
+Efficacite : notoriete mondiale, mais aussi boycotts et polemiques. La marque a brouille la frontiere entre publicite et art/journalisme.`,
+  },
+  {
+    id: 'campagne-6',
+    title: 'Dove — "Reverse Selfie" (2021)',
+    brief: 'Dove montre une adolescente qui se "defait" de ses retouches (filtres, maquillage, modifications) en remontant le temps, revelant son vrai visage.',
+    analyse_attendue: `Positionnement : beaute authentique, protection de l'estime de soi des jeunes.
+Procedes visuels : video en reverse (le processus de retouche est "deroule"), progression du visage modifie vers le visage reel, eclairage naturel final vs artificiel au debut.
+Procedes redactionnels : slogan "The pressure of social media is hurting our kids". Ton grave, engageant. Fonction emotive (Jakobson) : empathie parentale. Fonction conative : appel a la discussion parents-enfants.
+Figures de rhetorique : analepse visuelle (retour en arriere), antithese (faux vs vrai), gradation inversee (du plus retouche au plus naturel).
+References : Goffman (mise en scene de soi poussee a l'extreme par les filtres), Debord (le selfie retouche comme spectacle du soi).
+Cible : parents d'adolescentes 10-17 ans, cible secondaire : les adolescentes elles-memes.
+Efficacite : 6 milliards d'impressions, prise de conscience sur l'impact des filtres. Prolonge la strategie "Real Beauty" de 2004.`,
+  },
+  {
+    id: 'campagne-7',
+    title: 'SNCF — "Vos vies sont nos voyages" (2011)',
+    brief: 'La SNCF lance une campagne TV et affichage montrant des moments de vie (retrouvailles, rencontres, departs) lies au voyage en train.',
+    analyse_attendue: `Positionnement : le train comme lien humain, pas seulement un transport. Marque-emotion.
+Procedes visuels : scenes de vie authentiques filmees en gare et dans les trains, esthetique cinema (grain, lumiere naturelle), montage emotionnel avec ralentis.
+Procedes redactionnels : baseline "Vos vies sont nos voyages" — chiasme qui inverse la relation marque/client. Fonction emotive dominante (emotion, nostalgie). Voix-off intime.
+Figures de rhetorique : chiasme ("vos vies / nos voyages"), metonymie (le train = les moments de vie), synecdoque (un trajet = une vie).
+References : Lipovetsky (hyperconsommation emotionnelle — on vend de l'experience, pas un billet), McLuhan (le train comme medium de lien social).
+Cible : grand public, familles, couples, jeunes actifs. Coeur de cible : 25-45 ans.
+Efficacite : campagne primee, renovation de l'image SNCF au-dela du transport fonctionnel.`,
+  },
+  {
+    id: 'campagne-8',
+    title: 'Always — "#LikeAGirl" (2014)',
+    brief: 'Always demande a des adultes et des enfants de mimer "courir comme une fille", "lancer comme une fille". Les adultes caricaturent, les enfants font de leur mieux.',
+    analyse_attendue: `Positionnement : empowerment feminin, deconstruction des stereotypes de genre.
+Procedes visuels : format documentaire, camera a l'epaule, casting non professionnel. Contraste entre les reponses des adultes (caricaturales) et des enfants (authentiques).
+Procedes redactionnels : question simple repetee "What does it mean to do something like a girl?". Hashtag #LikeAGirl transforme une insulte en fierierte. Fonction conative : appel a changer les perceptions.
+Figures de rhetorique : antithese (adultes vs enfants), antanaclase ("like a girl" change de sens au cours du film), repetition/anaphore.
+References : Bourdieu (reproduction des stereotypes de genre par l'education), Goffman (roles sociaux joues inconsciemment).
+Cible : femmes 15-35 ans, cible secondaire : parents, educateurs.
+Efficacite : 90 millions de vues, Super Bowl 2015, augmentation de 50% de l'intention d'achat. Transforme une marque hygiene en marque militante.`,
   },
 ];
 
@@ -100,6 +268,103 @@ Ton : professionnel, factuel, avec un angle RSE.`,
       'Angle RSE mis en valeur sans greenwashing',
       'Ton adapte aux journalistes (factuel, pas publicitaire)',
       'Citation du dirigeant integree',
+    ],
+  },
+  {
+    id: 'redaction-3',
+    title: 'Affiche pour un festival de musique eco-responsable',
+    brief: `Annonceur : "Les Echos Verts", festival de musique en plein air dans le Vercors.
+Cible : jeunes 18-30 ans, sensibles a l'ecologie et a la musique independante.
+Objectif : promouvoir la 3e edition (juillet 2026). 5000 places.
+Contrainte : 1 affiche (titre + accroche + infos pratiques + ton).
+Particularites : zero dechet, gobelets consignes, scene solaire, artistes locaux.
+Ton : festif, engageant, un brin militant.`,
+    criteres: [
+      'Accroche percutante et coherente avec le positionnement eco',
+      'Informations pratiques presentes (dates, lieu, prix, site)',
+      'Ton festif mais engageant (pas culpabilisant)',
+      'Coherence visuelle suggeree (description de l\'univers graphique)',
+      'Differenciation par rapport aux festivals classiques',
+    ],
+  },
+  {
+    id: 'redaction-4',
+    title: 'Newsletter interne — Annonce politique RSE',
+    brief: `Annonceur : "Nexia Group", entreprise de conseil (350 salaries).
+Cible : les collaborateurs de l'entreprise.
+Objectif : annoncer la nouvelle politique RSE (teletravail 3j/semaine, compensation carbone, mecenat de competences 2j/an).
+Contrainte : 1 newsletter interne (300 mots max), objet de mail inclus.
+Ton : professionnel mais chaleureux, federateur.`,
+    criteres: [
+      'Objet de mail incitatif (pas generique)',
+      'Structure claire : annonce, details, appel a l\'engagement',
+      'Ton adapte a la communication interne (ni trop corporate, ni trop familier)',
+      'Les 3 mesures RSE clairement presentees',
+      'Valorisation des collaborateurs dans la demarche',
+    ],
+  },
+  {
+    id: 'redaction-5',
+    title: 'Story Instagram — Marque de vetements ethiques',
+    brief: `Annonceur : "NUDA", marque de vetements ethiques (coton bio, fabrication Portugal).
+Cible : femmes 22-35 ans, urbaines, sensibles a la mode responsable.
+Objectif : lancement de la collection ete 2026 "Solstice".
+Contrainte : 3 stories Instagram (texte de chaque slide + description visuelle).
+Ton : poetique, lumineux, authentique.`,
+    criteres: [
+      'Narration coherente sur 3 slides (debut, milieu, fin)',
+      'Texte adapte au format Story (court, percutant)',
+      'Description visuelle evocatrice',
+      'Mise en valeur des engagements ethiques sans greenwashing',
+      'Call-to-action final (swipe up, lien, etc.)',
+    ],
+  },
+  {
+    id: 'redaction-6',
+    title: 'Spot radio (30 sec) — Collecte alimentaire',
+    brief: `Annonceur : Banque Alimentaire, operation "Grandes Collectes" novembre 2026.
+Cible : grand public, menageres 35-65 ans, dans les supermarches.
+Objectif : recruter des benevoles et inciter aux dons alimentaires.
+Contrainte : script radio de 30 secondes (environ 75 mots), avec indication des sons/musiques.
+Ton : chaleureux, mobilisateur, concret.`,
+    criteres: [
+      'Respect du format 30 sec (75 mots environ)',
+      'Indication des sons/musiques/ambiances',
+      'Message clair et concret (dates, lieux, action demandee)',
+      'Ton chaleureux sans etre larmoyant',
+      'Appel a l\'action precis (quand, ou, comment aider)',
+    ],
+  },
+  {
+    id: 'redaction-7',
+    title: 'Page "A propos" — Site e-commerce bio',
+    brief: `Annonceur : "Racines", epicerie en ligne bio et locale (Ile-de-France).
+Cible : familles urbaines 30-50 ans, CSP+, soucieuses de l'alimentation.
+Objectif : creer la page "Notre histoire" du site web.
+Contrainte : 200 mots, structure narrative (qui, pourquoi, comment, valeurs).
+Ton : sincere, storytelling personnel, engageant.`,
+    criteres: [
+      'Storytelling personnel et authentique (pas generique)',
+      'Presentation des fondateurs et de leur motivation',
+      'Valeurs clairement exprimees (bio, local, qualite)',
+      'Structure narrative engageante (pas une liste)',
+      'Coherence avec le positionnement premium/authentique',
+    ],
+  },
+  {
+    id: 'redaction-8',
+    title: 'Tweet de crise — Greenwashing',
+    brief: `Annonceur : "FreshWear", marque de fast fashion accusee de greenwashing apres le lancement d'une collection "eco".
+Contexte : un influenceur a revele que la collection "eco" utilise seulement 5% de coton recycle. Le hashtag #FreshWearMent trending.
+Cible : communaute Twitter/X, journalistes, consommateurs defiants.
+Contrainte : 1 tweet (280 caracteres) + 1 thread de 3 tweets (reponse complete).
+Ton : humble, transparent, factuel. PAS de langue de bois.`,
+    criteres: [
+      'Tweet principal percutant et honnete (pas de langue de bois)',
+      'Thread structure : reconnaissance, explication, engagement concret',
+      'Ton adapte a la crise (humilite, pas de defensif)',
+      'Engagements concrets et verifiables (pas de promesses vagues)',
+      'Respect du format Twitter (280 car/tweet)',
     ],
   },
 ];
@@ -252,7 +517,7 @@ Donne un exemple de message modele a la fin.`;
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  onClick={() => { setMode(m.id); reset(); setExerciseIdx(Math.floor(Math.random() * 2)); }}
+                  onClick={() => { setMode(m.id); reset(); setExerciseIdx(Math.floor(Math.random() * 8)); }}
                   className="p-6 rounded-2xl bg-bg-card border border-white/5 hover:border-primary/30 transition-all text-left group"
                 >
                   <div className="flex items-start gap-4">

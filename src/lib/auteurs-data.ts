@@ -177,6 +177,71 @@ export const AUTEURS: Auteur[] = [
       "adaptation",
     ],
   },
+  {
+    auteur: "Dominique Wolton",
+    idee_centrale:
+      "Informer n'est pas communiquer : l'information est un message transmis, la communication suppose une relation et une negociation avec l'autre.",
+    citation_courte:
+      "Informer, c'est le message. Communiquer, c'est la relation.",
+    quand_utiliser:
+      "Distinguer information et communication, critiquer l'infobesite, analyser les limites du digital, reflexion sur le dialogue.",
+    phrase_modele:
+      "Comme le rappelle Wolton, cette campagne ne se contente pas d'informer : elle cherche a creer une relation avec le public en suscitant le dialogue sur les reseaux sociaux.",
+    exam: "e1",
+    tags: ["information", "communication", "relation", "dialogue", "digital"],
+  },
+  {
+    auteur: "Jurgen Habermas",
+    idee_centrale:
+      "L'espace public est le lieu ou les citoyens debattent rationnellement des affaires communes. La communication doit viser l'entente, pas la manipulation.",
+    citation_courte:
+      "L'espace public est le lieu de la discussion rationnelle et critique.",
+    quand_utiliser:
+      "Analyser le role des medias dans la democratie, critiquer la propagande ou la manipulation publicitaire, reflexion sur les reseaux sociaux comme espace public.",
+    phrase_modele:
+      "En s'appuyant sur Habermas, on peut questionner la transformation de l'espace public par les reseaux sociaux : le debat rationnel y est-il encore possible face aux algorithmes et a la desinformation ?",
+    exam: "e1",
+    tags: ["espace-public", "democratie", "debat", "medias", "manipulation"],
+  },
+  {
+    auteur: "Naomi Klein",
+    idee_centrale:
+      "No Logo : les grandes marques investissent l'espace public et la culture pour vendre non plus des produits mais des modes de vie. Le branding colonise l'identite.",
+    citation_courte:
+      "Les grandes marques ne vendent plus des produits, elles vendent un mode de vie.",
+    quand_utiliser:
+      "Critique du branding, de la publicite envahissante, de la mondialisation, du greenwashing, de la surconsommation.",
+    phrase_modele:
+      "Comme l'analyse Naomi Klein dans No Logo, cette marque ne vend pas un vetement mais une identite : le consommateur achete un mode de vie plus qu'un produit.",
+    exam: "e1",
+    tags: ["branding", "consommation", "mondialisation", "critique", "marque"],
+  },
+  {
+    auteur: "Guy Debord",
+    idee_centrale:
+      "La societe du spectacle : les rapports sociaux sont mediatises par des images. Le vecu est remplace par la representation. La publicite participe de cette spectacularisation du reel.",
+    citation_courte:
+      "Tout ce qui etait directement vecu s'est eloigne dans une representation.",
+    quand_utiliser:
+      "Critiquer la mise en scene publicitaire, l'image de marque, les reseaux sociaux comme spectacle, la societe de l'image.",
+    phrase_modele:
+      "Debord dirait que cette campagne Instagram illustre la societe du spectacle : l'experience reelle du produit est remplacee par sa mise en scene visuelle.",
+    exam: "e1",
+    tags: ["spectacle", "image", "representation", "critique", "medias"],
+  },
+  {
+    auteur: "Erving Goffman",
+    idee_centrale:
+      "La mise en scene de la vie quotidienne : chaque individu est un acteur qui gere son image (face) dans les interactions sociales. La communication est un theatre.",
+    citation_courte:
+      "La vie sociale est un theatre ou chacun joue un role.",
+    quand_utiliser:
+      "Analyser le personal branding, la communication sur les reseaux sociaux, l'image de marque, la gestion de l'e-reputation, la communication de crise.",
+    phrase_modele:
+      "Selon Goffman, le community manager met en scene la 'face' de la marque sur les reseaux sociaux, gerant l'impression donnee au public comme un acteur sur scene.",
+    exam: "e5",
+    tags: ["theatre", "face", "interaction", "image", "personal-branding"],
+  },
 ];
 
 /**
